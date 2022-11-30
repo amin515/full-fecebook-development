@@ -341,15 +341,15 @@ export const forgotPassword = async (req, res, next) => {
             const passwordResetToken = createToken({
                 id: user._id
             }, '30m')
-            // sent link to active account
+            // sent link for reset password !
             passwordResetLink(user.email, {
                 name: user.first_name + ' ' + user.sur_name,
                 link: `${process.env.APP_URL +':'+ process.env.SERVER_PORT}/api/v1/user/forgot-password/${passwordResetToken}`,
                 code: accessCode,
                 mail: user.email
-
             });
 
+            
             res.status(200).json({
                 message: "Password reset link sent to your account",
             })
@@ -358,4 +358,48 @@ export const forgotPassword = async (req, res, next) => {
     } catch (error) {
         next(error)
     }
+}
+
+export const resetPasswordLink = async (req, res, next) => {
+
+    try {
+
+        // get token
+        const {
+            token
+        } = req.params;
+        const { password } = req.body;
+        // check token
+        if (!token) {
+            next(customError(400, "Invalid password url"))
+        } else {
+            // verify token
+            const tokenData = verifyToken(token);
+            if (!tokenData) {
+                next(customError(400, "Inavlid token"))
+            }
+            // now activate account
+            if (tokenData) {
+
+                const user = await User.findById(tokenData.id);
+                
+                if(!user){
+                    next(customError(400, "User data not found"))
+                }
+                if(user){
+                   await User.findByIdAndUpdate(user._id, {
+                    password : hashPassword(password),
+                    access_token : ''
+                   }) 
+                }
+            }
+        }
+        res.status(200).json({
+            message : "Password change successful"
+        })
+
+    } catch (error) {
+        next(error)
+    }
+
 }
