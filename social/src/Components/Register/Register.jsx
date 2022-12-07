@@ -2,6 +2,42 @@
 import React from 'react'
 import { useState } from 'react'
 import cross from '../../assets/icons/cross.png'
+
+
+// get fb date
+const day = [1,2,3,4,5,6,7,8,9,10,
+  11,12,13,14,15,16,17,18,19,20,
+  21,22,23,24,25,26,27,28,29,30,31
+]
+
+// get fb months
+const month = [
+  "Jan", 
+  "Feb", 
+  "Mar", 
+  "apr", 
+  "May", 
+  "Apr",
+  "May", 
+  "Jun", 
+  "Jul", 
+  "Aug", 
+  "Sep", 
+  "Oct", 
+  "Nov", 
+  "Dec"
+]
+
+
+
+// get fb years
+const years = Array.from(
+  { length : 118 },
+  (_, i) => new Date().getFullYear() - i
+)
+
+
+
 const Register = ({setRegister}) => {
   
   // set input in form data
@@ -49,6 +85,17 @@ const Register = ({setRegister}) => {
   };
  };
 
+ // handle validate change focus
+ const handleValidateChangeFocus = (e) => {
+  const fieldName = e.target.name;
+  
+  setValidate( (prevState) => ( {
+    ...prevState,
+    [fieldName] : false
+  }));
+  };
+ 
+
  
   return (
     <div className="blur-box">
@@ -71,6 +118,7 @@ const Register = ({setRegister}) => {
               value={fname}
               onChange={handleGetformData}
               onBlur={handleValidateChange}
+              onFocus={handleValidateChangeFocus}
               />
               
               <input type="text" placeholder="Surname" 
@@ -79,7 +127,7 @@ const Register = ({setRegister}) => {
               value={sname}
               onChange={handleGetformData}
               onBlur={handleValidateChange}
-              
+              onFocus={handleValidateChangeFocus}
               />
               
             </div>
@@ -90,6 +138,7 @@ const Register = ({setRegister}) => {
               value={emailOrPhone}
               onChange={handleGetformData}
               onBlur={handleValidateChange}
+              onFocus={handleValidateChangeFocus}
               />
             </div>
             <div className="reg-form">
@@ -99,19 +148,33 @@ const Register = ({setRegister}) => {
               value={password}
               onChange={handleGetformData}
               onBlur={handleValidateChange}
+              onFocus={handleValidateChangeFocus}
               />
             </div>
             <div className="reg-form">
               <span>Date of birth</span>
               <div className="reg-form-select">
-                <select name="" id="">
-                  <option value="">Day</option>
+                <select name="day" id="" onChange={handleGetformData}>
+                {
+                   day.map((item, index) => 
+                     <option value={item} key={index}>{item}</option>
+                    )
+                  }
                 </select>
-                <select name="" id="">
-                  <option value="">Month</option>
+                <select name="month" id="" onChange={handleGetformData}>
+                  {
+                   month.map((item, index) => 
+                     <option value={item} key={index}>{item}</option>
+                    )
+                  }
+                  
                 </select>
-                <select name="" id="">
-                  <option value="">Year</option>
+                <select name="year" id="" onChange={handleGetformData}>
+                {
+                   years.map((item, index) => 
+                     <option value={item} key={index}>{item}</option>
+                    )
+                  }
                 </select>
               </div>
             </div>
@@ -121,15 +184,15 @@ const Register = ({setRegister}) => {
               <div className="reg-form-select">
                 <label>
                   Female
-                  <input type="radio" name="gender" />
+                  <input type="radio" name="gender" value="Female" onChange={handleGetformData}/>
                 </label>
                 <label>
                   Male
-                  <input type="radio" name="gender" />
+                  <input type="radio" name="gender" value="Male" onChange={handleGetformData}/>
                 </label>
                 <label>
                   Custom
-                  <input type="radio" name="gender" />
+                  <input type="radio" name="gender"  value="Custom" onChange={handleGetformData}/>
                 </label>
               </div>
             </div>
