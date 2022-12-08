@@ -2,7 +2,9 @@
 import React from 'react'
 import { useState } from 'react'
 import cross from '../../assets/icons/cross.png'
-
+import createToaste from '../../Pages/utility/toastMessage'
+import { useDispatch } from 'react-redux';
+import { userRegister } from '../../redux/auth/authAction';
 
 // get fb date
 const day = [1,2,3,4,5,6,7,8,9,10,
@@ -39,13 +41,19 @@ const years = Array.from(
 
 
 const Register = ({setRegister}) => {
+
+  const  dispatch  = useDispatch()
   
   // set input in form data
   const [input, setInput] = useState({
     fname : '',
     sname : '',
     emailOrPhone : '',
-    password : ''
+    password : '',
+    day : '',
+    month : '',
+    year : '',
+    gender : ''
   });
 
 
@@ -58,7 +66,7 @@ const Register = ({setRegister}) => {
   });
 
   // distructure from input
-  const { fname, sname, emailOrPhone, password } = input;
+  const { fname, sname, emailOrPhone, password, gender } = input;
 
   // get data from form
  const handleGetformData = (e) => {
@@ -95,6 +103,36 @@ const Register = ({setRegister}) => {
   }));
   };
  
+  // submit form
+
+  const handleSubmitForm = (e) => {
+   e.preventDefault();
+   
+   // check validate
+   if( !fname ||
+       !sname || 
+       !emailOrPhone || 
+       !password ||  
+       !gender){
+    
+        createToaste('All fields are required !', 'error')
+   }else {
+     dispatch(userRegister({
+      first_name : fname,
+      sur_name : sname,
+      email : emailOrPhone,
+      password : password,
+      gender : gender,
+      birth_date : input.day,
+      birth_month : input.month,
+      birth_year : input.year
+     },
+     setInput,
+     e,
+     setRegister,
+     ))
+   }
+  }
 
  
   return (
@@ -110,7 +148,7 @@ const Register = ({setRegister}) => {
           </button>
         </div>
         <div className="sign-up-body">
-          <form action="">
+          <form onSubmit={ handleSubmitForm }>
             <div className="reg-form reg-form-inline">
               <input type="text" placeholder="First Name" 
               className={validate.fname && 'error-border'}
@@ -142,7 +180,7 @@ const Register = ({setRegister}) => {
               />
             </div>
             <div className="reg-form">
-              <input type="text" placeholder="New password" 
+              <input type="password" placeholder="New password" 
               className={validate.password && 'error-border'}
               name='password'
               value={password}

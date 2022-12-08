@@ -4,7 +4,7 @@
  */
 
 const initialState = {
-  user : [],
+  user : {},
   loginState : false,
   loading : false,
   message : ''

@@ -4,7 +4,6 @@ import './App.css';
 import Auth from './Pages/Auth/Auth';
 import Home from './Pages/Home/Home';
 import Profile from './Pages/Profile/Profile';
-import createToaste from './Pages/utility/toastMessage';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 function App() {
@@ -12,6 +11,7 @@ function App() {
   return (
    <>
     <ToastContainer 
+     style={{zIndex : 999999}}
     position='top-center'
     autoClose={3000}
     hideProgressBar={true}
