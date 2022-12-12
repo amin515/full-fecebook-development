@@ -6,6 +6,7 @@ import Home from './Pages/Home/Home';
 import Profile from './Pages/Profile/Profile';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Authentication from './Pages/Authentication/Authentication';
 function App() {
   // createToaste('This is a test', 'warn')
   return (
@@ -22,6 +23,7 @@ function App() {
       <Route path='/' element={ <Home /> }/>
       <Route path='/login' element={ <Auth /> }/>
       <Route path='/profile' element={ <Profile /> }/>
+      <Route path='/authentic' element={ <Authentication /> }/>
 
     </Routes>
    </>

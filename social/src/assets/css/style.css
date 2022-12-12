@@ -1102,6 +1102,12 @@ Components
   cursor: pointer;
 }
 
+.reset-header-wraper .login-part{
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
 .reset-header-wraper .login-part input {
   height: 40px;
   border: 1px solid #ccc;

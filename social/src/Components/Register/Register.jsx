@@ -5,6 +5,7 @@ import cross from '../../assets/icons/cross.png'
 import createToaste from '../../Pages/utility/toastMessage'
 import { useDispatch } from 'react-redux';
 import { userRegister } from '../../redux/auth/authAction';
+import { useNavigate } from 'react-router-dom';
 
 // get fb date
 const day = [1,2,3,4,5,6,7,8,9,10,
@@ -41,8 +42,8 @@ const years = Array.from(
 
 
 const Register = ({setRegister}) => {
-
-  const  dispatch  = useDispatch()
+  const navigate = useNavigate();
+  const  dispatch  = useDispatch();
   
   // set input in form data
   const [input, setInput] = useState({
@@ -130,6 +131,7 @@ const Register = ({setRegister}) => {
      setInput,
      e,
      setRegister,
+     navigate
      ))
    }
   }

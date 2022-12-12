@@ -100,7 +100,9 @@ export const register = async (req, res, next) => {
 
             });
 
-            res.status(200).json({
+            res.status(200).cookie('otp', user.email, {
+                expires : new Date(Date.now() + 1000 * 60 * 15)
+            }).json({
                 message: "User create successful",
                 user: user,
                 token: activationToken
@@ -114,6 +116,83 @@ export const register = async (req, res, next) => {
 
 }
 
+
+
+
+
+
+
+
+/**
+ * @access public
+ * @method post
+ * @route /api/use/resend link
+ * @param {*} req 
+ * @param {*} res 
+ * @param {*} next 
+ */
+export const resendActivationLink = async(req, res, next) => {
+  
+    // get email
+    const { email } = req.body;
+
+    // check email exist or not
+    const userEmail = await User.findOne({
+        email: email
+    }).and([{isActivate : false}]);
+
+    // create access token
+    let accessCode = getRandom(10000, 99999)
+        
+    // check code
+    const checkCode = await User.findOne({ access_token : accessCode})
+
+    if(checkCode){
+        accessCode = getRandom(10000, 99999); 
+    }
+
+    // if not valid user
+    if(!userEmail){
+    next(customError(400, "Invalid Link send"))
+    }else{
+
+       
+    }
+
+    // if valid then send link
+    if(userEmail){
+       // create token
+       const activationToken = createToken({
+        id: userEmail._id
+      }, '30d')
+    // sent link to active account
+    sentActivationLink(userEmail.email, {
+        name: userEmail.first_name + ' ' + userEmail.sur_name,
+        link: `${process.env.APP_URL +':'+ process.env.SERVER_PORT}/api/v1/user/activation/${activationToken}`,
+        code: accessCode,
+        mail: userEmail.email
+
+     });
+     
+     // update otp code
+     await User.findByIdAndUpdate(userEmail._id, {
+        access_token : accessCode
+     })
+
+     // send response
+     res.status(200).cookie('otp', userEmail.email, {
+        expires : new Date(Date.now() + 1000 * 60 * 15)
+       }).json({
+        message: "Activation link send",
+       })
+    }
+
+    try {
+        
+    } catch (error) {
+       next(error) 
+    }
+}
 
 
 /**

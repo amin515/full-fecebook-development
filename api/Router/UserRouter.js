@@ -1,5 +1,5 @@
 import express from 'express';
-import { loggedInUser, login, register, accontActivation, activationByCode, forgotPassword, resetPasswordLink} from '../Controllers/UserControllers.js';
+import { loggedInUser, login, register, accontActivation, activationByCode, forgotPassword, resetPasswordLink, resendActivationLink} from '../Controllers/UserControllers.js';
 
 
 
@@ -15,6 +15,7 @@ router.post('/register', register);
 router.get('/me', loggedInUser);
 router.get('/activation/:token', accontActivation);
 router.post('/code-activate', activationByCode);
+router.post('/resend-link', resendActivationLink);
 router.post('/forgot-password/', forgotPassword);
 router.post('/forgot-password/:token', resetPasswordLink);
 
