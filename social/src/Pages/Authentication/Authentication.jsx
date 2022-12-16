@@ -1,14 +1,14 @@
 
-import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import authentic from '../../assets/icons/facebook.svg'
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import Header from '../../Components/Header/Header';
 import Footer from '../../Components/Footer/Footer';
 import Cookies from "js-cookie";
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import createToaste from '../utility/toastMessage';
 import { accountActivateByOtp, resendActivationLink } from '../../redux/auth/authAction';
-
+import facebookLogo from '../../assets/icons/facebook.svg'
 
 
 const Authentication = () => {
@@ -49,7 +49,7 @@ const Authentication = () => {
  const handleActivateByCode = (e) => {
 
   if(!code){
-    createToaste('Set a otp code', "warn")
+    createToaste('OTP code is required !', "warn")
   }else{
    dispatch(accountActivateByOtp({
       code : code,
@@ -72,21 +72,10 @@ const handleResendLink = (e) => {
   return (
     <>
      
-    {/* <!-- Facebook Auth Area --> */}
-    <div class="reset-header">
-      <div class="reset-header-wraper">
-        <div class="reset-logo">
-          <img src={authentic} alt="" />
-        </div>
-        <div class="login-part">
-          <input type="text" placeholder="Email or mobile number" />
-          <input type="text" placeholder="Password" />
-          <button>Log In</button>
-          <a href="#">Forgotten account?</a>
-        </div>
-      </div>
-    </div>
+    <Header />
 
+    {/* <!-- Facebook Auth Area --> */}
+    
     {/* <!-- reset Box  --> */}
     <div class="reset-area">
       <div class="reset-wraper">
@@ -102,7 +91,7 @@ const handleResendLink = (e) => {
             <div class="code-box">
               <input type="text" value={code} onChange={handleGetCode}/>
               <div class="code-text">
-                <span>We sent your code to:</span>
+                <span>We sent your code to: </span>
                 <span>{ activateCookie }</span>
               </div>
             </div>

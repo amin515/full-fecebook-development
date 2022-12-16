@@ -28,6 +28,10 @@ const userSchema = mongoose.Schema({
         unique : true,
         trim : true
     },
+    auth : {
+        type : String,
+        trim : true
+    },
     cell : {
         type : String,
         unique : true,

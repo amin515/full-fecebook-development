@@ -49,7 +49,7 @@ const Register = ({setRegister}) => {
   const [input, setInput] = useState({
     fname : '',
     sname : '',
-    emailOrPhone : '',
+    auth : '',
     password : '',
     day : '',
     month : '',
@@ -62,12 +62,12 @@ const Register = ({setRegister}) => {
   const [validate, setValidate] = useState({
     fname : false,
     sname : false,
-    emailOrPhone : false,
+    auth : false,
     password : false
   });
 
   // distructure from input
-  const { fname, sname, emailOrPhone, password, gender } = input;
+  const { fname, sname, auth, password, gender } = input;
 
   // get data from form
  const handleGetformData = (e) => {
@@ -112,7 +112,7 @@ const Register = ({setRegister}) => {
    // check validate
    if( !fname ||
        !sname || 
-       !emailOrPhone || 
+       !auth || 
        !password ||  
        !gender){
     
@@ -121,7 +121,7 @@ const Register = ({setRegister}) => {
      dispatch(userRegister({
       first_name : fname,
       sur_name : sname,
-      email : emailOrPhone,
+      auth : auth,
       password : password,
       gender : gender,
       birth_date : input.day,
@@ -173,9 +173,9 @@ const Register = ({setRegister}) => {
             </div>
             <div className="reg-form">
               <input type="text" placeholder="Mobile number or email address" 
-              className={validate.emailOrPhone && 'error-border'}
-              name='emailOrPhone'
-              value={emailOrPhone}
+              className={validate.auth && 'error-border'}
+              name='auth'
+              value={auth}
               onChange={handleGetformData}
               onBlur={handleValidateChange}
               onFocus={handleValidateChangeFocus}

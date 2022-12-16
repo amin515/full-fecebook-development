@@ -69,6 +69,7 @@ export const accountActivateByOtp =
       const active = await axios
         .post("/api/v1/user/code-activate", {
           code: code,
+          email : email
         })
         .then((res) => {
           createToaste("Account Activate successful", "success");
@@ -89,7 +90,7 @@ export const resendActivationLink =
     try {
       const active = await axios
         .post("/api/v1/user/resend-link", {
-          email: email,
+          auth_1: email,
         })
         .then((res) => {
           createToaste(res.data.message, "success");
