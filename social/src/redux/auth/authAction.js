@@ -8,6 +8,8 @@ import {
   REGISTER_SUCCESS,
 } from "./actionType";
 
+import cookie from 'js-cookie';
+// user register
 export const userRegister =
   (data, setInput, e, setRegister, navigate) => async (dispatch) => {
     try {
@@ -102,3 +104,27 @@ export const resendActivationLink =
       createToaste(error.message, "warn");
     }
   };
+
+  // find account
+export const findAccount =
+  ({ auth }, navigate) =>
+  async (dispatch) => {
+    try {
+      if(auth){
+        const find = await axios
+        .post("/api/v1/user/find-user-account", {
+          auth: auth,
+        })
+        .then((res) => {
+          navigate('/find-account')
+        })
+        .catch((err) => {
+          createToaste(err.response.data.message, "warn");
+        });
+      }
+      
+    } catch (error) {
+      createToaste(error.message, "warn");
+    }
+  };
+

@@ -6,6 +6,7 @@ import userRouter from './Router/UserRouter.js'
 import connectmongoDB from './Config/db.js';
 import errorHandle from './Middlewares/errorHandler.js';
 import cookieParser from 'cookie-parser';
+import cors from 'cors';
 
 
 
@@ -19,9 +20,9 @@ let PORT = process.env.SERVER_PORT || 8080
 
 // middleware init
 app.use(express.json());
-app.use(express.urlencoded({ extended : false }))
-app.use(cookieParser())
-
+app.use(express.urlencoded({ extended : false }));
+app.use(cookieParser());
+app.use(cors());
 
 
 // router initalised

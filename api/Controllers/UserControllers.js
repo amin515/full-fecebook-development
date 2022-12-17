@@ -624,3 +624,68 @@ export const resetPasswordLink = async (req, res, next) => {
     }
 
 }
+
+
+/**
+ * Find use account
+ */
+
+export const findUserAccount = async (req, res, next) => {
+
+    const { auth } = req.body;
+
+    try {
+        
+        let mobileData = null;
+        let emailData = null;
+
+
+
+        if (isEMail(auth)) {
+            emailData = auth;
+            const checkEmail = await User.findOne({
+                email: auth
+            })
+            if (!checkEmail) {
+                next(customError(400, "Email user not found"));
+                return;
+            }else{
+                res.status(200).cookie('findAccount', JSON.stringify({
+                    name : checkEmail.first_name + ' ' + checkEmail.sur_name,
+                    photo : checkEmail.profile_photo,
+                    email : checkEmail.email
+                }), {
+                    expires: new Date(Date.now() + 1000 * 60 * 15)}).json({
+                    user : checkEmail
+                })
+            }
+
+        } else if (isMobile(auth)) {
+            mobileData = auth;
+            const checkMobile = await User.findOne({
+                cell: auth
+            })
+            if (!checkMobile) {
+                next(customError(400, "Phone user not found"));
+                return;
+            }else{
+                res.status(200).cookie('findAccount', JSON.stringify({
+                    name : checkMobile.first_name + ' ' + checkMobile.sur_name,
+                    photo : checkMobile.profile_photo,
+                    cell : checkMobile.cell
+                }), {
+                    expires: new Date(Date.now() + 1000 * 60 * 15)}).json({
+                    user : checkMobile
+                })
+            }
+        } else {
+            next(customError(400, 'Invalid email or Phone'));
+            return
+        }
+
+
+    } catch (error) {
+        next(error)
+    }
+}
+
