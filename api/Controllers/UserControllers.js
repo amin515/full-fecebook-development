@@ -15,13 +15,15 @@ import {
     passwordResetLink,
     sentActivationLink
 } from '../utility/sendMail.js';
-import { sendOTP } from '../utility/sendSms.js';
+import {
+    sendOTP
+} from '../utility/sendSms.js';
 import {
     isEMail,
     isMobile
 } from '../utility/validator.js';
 
-let checkEmail ;
+let checkEmail;
 let checkMobile;
 
 
@@ -141,16 +143,16 @@ export const register = async (req, res, next) => {
 
             // if verification by phone
 
-            if(mobileData){
-            // sent link to active account
-           sendOTP(user.cell, `Hi, ${user.first_name} ${user.sur_name} Your OTP code is ${accessCode}`)
+            if (mobileData) {
+                // sent link to active account
+                sendOTP(user.cell, `Hi, ${user.first_name} ${user.sur_name} Your OTP code is ${accessCode}`)
 
-            res.status(200).cookie('otp', user.cell, {
-                expires: new Date(Date.now() + 1000 * 60 * 15)
-            }).json({
-                message: "User create successful",
-                user: user,
-            }) 
+                res.status(200).cookie('otp', user.cell, {
+                    expires: new Date(Date.now() + 1000 * 60 * 15)
+                }).json({
+                    message: "User create successful",
+                    user: user,
+                })
             }
 
 
@@ -183,10 +185,10 @@ export const resendActivationLink = async (req, res, next) => {
 
     // get email
     const {
-        auth_1
+        auth
     } = req.body;
 
-  
+
     // eikhane kaj korte hobe
 
     // initial auth value
@@ -196,112 +198,108 @@ export const resendActivationLink = async (req, res, next) => {
 
 
 
-    if (isEMail(auth_1)) {
-        emailData = auth_1;
-         checkEmail = await User.findOne(
-            { email : auth_1 }
-            ).and([{ isActivate : false}])
-        if (!checkEmail) {
-            next(customError(400, "Email user not found"));
-            return;
-        }
-        if(checkEmail.isActivate){
-            next(customError(400, "This email user already activate"));
-        }
 
-
-    } else if (isMobile(auth_1)) {
-        mobileData = auth_1;
-        checkMobile = await User.findOne({
-            cell: auth_1
-        }).and([{isActivate : false}])
-        if (!checkMobile) {
-            next(customError(400, "Mobile user not found"));
-            return;
-        }
-
-        if(checkMobile.isActivate){
-            next(customError(400, "This Mobile user already activate"));
-        }
-    } else {
-        next(customError(400, 'Invalid email or Phone'));
-        return
-    }
-
-
-
-    // check email exist or not
-    // const userEmail = await User.findOne({
-    //     email: email
-    // }).and([{
-    //     isActivate: false
-    // }]);
-
-    // create access token
-    let accessCode = getRandom(10000, 99999)
-
-    // check code
-    const checkCode = await User.findOne({
-        access_token: accessCode
-    })
-
-    if (checkCode) {
-        accessCode = getRandom(10000, 99999);
-    }
-
-
-    // resend OTP
-
-    if(mobileData){
-        // sent link to active account
-       sendOTP(checkMobile.cell, `Hi, ${checkMobile.first_name} ${checkMobile.sur_name} Your OTP code is ${accessCode}`)
-
-        // update otp code
-        await User.findByIdAndUpdate(checkMobile._id, {
-            access_token: accessCode
-        })
-
-        res.status(200).cookie('otp', checkMobile.cell, {
-            expires: new Date(Date.now() + 1000 * 60 * 15)
-        }).json({
-            message: "resend OTP successful",
-         
-        }) 
-        }
-
-
-
-
-    // if valid then send link
-    if (emailData) {
-        // create token
-        const activationToken = createToken({
-            id: checkEmail._id
-        }, '30d')
-        // sent link to active account
-        sentActivationLink(checkEmail.email, {
-            name: checkEmail.first_name + ' ' + checkEmail.sur_name,
-            link: `${process.env.APP_URL +':'+ process.env.SERVER_PORT}/api/v1/user/activation/${activationToken}`,
-            code: accessCode,
-            mail: checkEmail.email
-
-        });
-
-        // update otp code
-        await User.findByIdAndUpdate(checkEmail._id, {
-            access_token: accessCode
-        })
-
-        // send response
-        res.status(200).cookie('otp', checkEmail.email, {
-            expires: new Date(Date.now() + 1000 * 60 * 15)
-        }).json({
-            message: "Activation link send",
-        })
-    }
 
     try {
+        if (isEMail(auth)) {
+            emailData = auth;
+            checkEmail = await User.findOne({
+                email: auth
+            }).and([{
+                isActivate: false
+            }])
+            if (!checkEmail) {
+                next(customError(400, "Email user not found"));
+                return;
+            }
+            if (checkEmail.isActivate) {
+                next(customError(400, "This email user already activate"));
+            }
 
+
+        } else if (isMobile(auth)) {
+            mobileData = auth;
+            checkMobile = await User.findOne({
+                cell: auth
+            }).and([{
+                isActivate: false
+            }])
+            if (!checkMobile) {
+                next(customError(400, "Mobile user not found"));
+                return;
+            }
+
+            if (checkMobile.isActivate) {
+                next(customError(400, "This Mobile user already activate"));
+            }
+        } else {
+            next(customError(400, 'Invalid email or Phone'));
+            return
+        }
+
+
+
+
+
+        // create access token
+        let accessCode = getRandom(10000, 99999)
+
+        // check code
+        const checkCode = await User.findOne({
+            access_token: accessCode
+        })
+
+        if (checkCode) {
+            accessCode = getRandom(10000, 99999);
+        }
+
+
+        // resend OTP
+
+        if (mobileData) {
+            // sent link to active account
+            sendOTP(checkMobile.cell, `Hi, ${checkMobile.first_name} ${checkMobile.sur_name} Your OTP code is ${accessCode}`)
+
+            // update otp code
+            await User.findByIdAndUpdate(checkMobile._id, {
+                access_token: accessCode
+            })
+
+            res.status(200).cookie('otp', checkMobile.cell, {
+                expires: new Date(Date.now() + 1000 * 60 * 15)
+            }).json({
+                message: "resend OTP successful",
+
+            })
+        }
+
+        // if valid then send link
+        if (emailData) {
+            // create token
+            const activationToken = createToken({
+                id: checkEmail._id
+            }, '30d')
+            // sent link to active account
+            sentActivationLink(checkEmail.email, {
+                name: checkEmail.first_name + ' ' + checkEmail.sur_name,
+                link: `${process.env.APP_URL +':'+ process.env.SERVER_PORT}/api/v1/user/activation/${activationToken}`,
+                code: accessCode,
+                mail: checkEmail.email
+
+            });
+
+            // update otp code
+            await User.findByIdAndUpdate(checkEmail._id, {
+                access_token: accessCode
+            })
+
+            // send response
+            res.status(200).cookie('otp', checkEmail.email, {
+                expires: new Date(Date.now() + 1000 * 60 * 15)
+            }).json({
+                message: "Activation link send",
+            })
+        }
     } catch (error) {
         next(error)
     }
@@ -501,7 +499,11 @@ export const activationByCode = async (req, res, next) => {
             email
         } = req.body;
 
-        const user = await User.findOne().or([{email : email}, {cell : email }])
+        const user = await User.findOne().or([{
+            email: email
+        }, {
+            cell: email
+        }])
 
         if (!user) {
             next(customError(404, "Activation user not found"))
@@ -632,10 +634,12 @@ export const resetPasswordLink = async (req, res, next) => {
 
 export const findUserAccount = async (req, res, next) => {
 
-    const { auth } = req.body;
+    const {
+        auth
+    } = req.body;
 
     try {
-        
+
         let mobileData = null;
         let emailData = null;
 
@@ -649,14 +653,15 @@ export const findUserAccount = async (req, res, next) => {
             if (!checkEmail) {
                 next(customError(400, "Email user not found"));
                 return;
-            }else{
+            } else {
                 res.status(200).cookie('findAccount', JSON.stringify({
-                    name : checkEmail.first_name + ' ' + checkEmail.sur_name,
-                    photo : checkEmail.profile_photo,
-                    email : checkEmail.email
+                    name: checkEmail.first_name + ' ' + checkEmail.sur_name,
+                    photo: checkEmail.profile_photo,
+                    email: checkEmail.email
                 }), {
-                    expires: new Date(Date.now() + 1000 * 60 * 15)}).json({
-                    user : checkEmail
+                    expires: new Date(Date.now() + 1000 * 60 * 15)
+                }).json({
+                    user: checkEmail
                 })
             }
 
@@ -668,14 +673,15 @@ export const findUserAccount = async (req, res, next) => {
             if (!checkMobile) {
                 next(customError(400, "Phone user not found"));
                 return;
-            }else{
+            } else {
                 res.status(200).cookie('findAccount', JSON.stringify({
-                    name : checkMobile.first_name + ' ' + checkMobile.sur_name,
-                    photo : checkMobile.profile_photo,
-                    cell : checkMobile.cell
+                    name: checkMobile.first_name + ' ' + checkMobile.sur_name,
+                    photo: checkMobile.profile_photo,
+                    cell: checkMobile.cell
                 }), {
-                    expires: new Date(Date.now() + 1000 * 60 * 15)}).json({
-                    user : checkMobile
+                    expires: new Date(Date.now() + 1000 * 60 * 15)
+                }).json({
+                    user: checkMobile
                 })
             }
         } else {
@@ -689,3 +695,183 @@ export const findUserAccount = async (req, res, next) => {
     }
 }
 
+
+export const sendPasswordResetOtp = async (req, res, next) => {
+
+    const {
+        auth
+    } = req.body
+
+    let mobileData = null;
+    let emailData = null;
+
+    // let checkEmail;
+    // let checkMobile;
+
+
+
+
+    try {
+
+        if (isEMail(auth)) {
+            emailData = auth;
+            checkEmail = await User.findOne({
+                email: auth
+            })
+        }
+        if (isMobile(auth)) {
+            mobileData = auth;
+            checkMobile = await User.findOne({
+                cell: auth
+            })
+        }
+
+        // create access token
+        let accessCode = getRandom(10000, 99999)
+
+        // check code
+        const checkCode = await User.findOne({
+            access_token: accessCode
+        })
+
+        if (checkCode) {
+            accessCode = getRandom(10000, 99999);
+        }
+
+
+        // resend OTP
+
+        if (mobileData) {
+            // sent link to active account
+            sendOTP(checkMobile.cell, `Hi, ${checkMobile.first_name} ${checkMobile.sur_name} Your OTP code is ${accessCode}`)
+
+            // update otp code
+            await User.findByIdAndUpdate(checkMobile._id, {
+                access_token: accessCode
+            })
+
+            res.status(200).cookie('otp', checkMobile.cell, {
+                expires: new Date(Date.now() + 1000 * 60 * 15)
+            }).json({
+                message: "send OTP successful",
+
+            })
+        }
+
+
+
+        // if valid then send link
+        if (emailData) {
+            // create token
+            const activationToken = createToken({
+                id: checkEmail._id
+            }, '30d')
+            // sent link to active account
+            sentActivationLink(checkEmail.email, {
+                name: checkEmail.first_name + ' ' + checkEmail.sur_name,
+                link: `${process.env.APP_URL +':'+ process.env.SERVER_PORT}/api/v1/user/activation/${activationToken}`,
+                code: accessCode,
+                mail: checkEmail.email
+
+            });
+
+            // update otp code
+            await User.findByIdAndUpdate(checkEmail._id, {
+                access_token: accessCode
+            })
+
+            // send response
+            res.status(200).cookie('otp', checkEmail.email, {
+                expires: new Date(Date.now() + 1000 * 60 * 15)
+            }).json({
+                message: "Reset password link send",
+            })
+        }
+    } catch (error) {
+        next(error)
+    }
+
+}
+
+
+export const checkResetPasswordOtp = async (req, res, next) => {
+
+
+    try {
+
+        const {
+            code,
+            auth
+        } = req.body;
+
+        if (isEMail(auth)) {
+            const userData = await User.findOne().where("email").equals(auth)
+
+            if (!userData) {
+                return next(customError(400, 'Invalid user request'))
+            }
+
+            if (userData.access_token != code) {
+                return next(customError(400, 'OTP not match'))
+            }
+            if (userData.access_token == code) {
+                res.status(200).cookie('cpid', userData._id.toString(), {
+                    expires: new Date(Date.now() + 1000 * 60 * 30)
+                }).cookie('cpcode', code, {
+                    expires: new Date(Date.now() + 1000 * 60 * 30)
+                }).json({
+                    message: "Now can change your pass"
+                })
+            }
+        } else if (isMobile(auth)) {
+            const userData = await User.findOne().where("cell").equals(auth)
+
+            if (!userData) {
+                return next(customError(400, 'Invalid user request'))
+            }
+
+            if (userData.access_token != code) {
+                return next(customError(400, 'OTP not match'))
+            }
+            if (userData.access_token == code) {
+                res.status(200).cookie('cpid', userData._id.toString(), {
+                    expires: new Date(Date.now() + 1000 * 60 * 30)
+                }).cookie('cpcode', code, {
+                    expires: new Date(Date.now() + 1000 * 60 * 30)
+                }).json({
+                    message: "Now can change your pass"
+                })
+            }
+        } else {
+            next(customError(400, 'Invalid email or Phone'));
+            return
+        }
+    } catch (error) {
+        next(error)
+    }
+}
+
+export const resetPassword = async (req, res, next) => {
+    const { id, password, code} = req.body;
+   try {
+     const userData = await User.findOne().and([{_id : id}, {access_token : code}])
+     if(!userData){
+       return  next(customError(400, 'No user data found'))
+     }
+     if(userData){
+        await User.findByIdAndUpdate(id, {
+            password : hashPassword(password),
+            access_token : null
+        })
+         res.status(200)
+        .clearCookie('cpid')
+        .clearCookie('cpcode')
+        .clearCookie('findAccount')
+        .clearCookie('otp')
+        .json( { message : ' password changed successful' })
+     
+     }
+   } catch (error) {
+    next(error)
+   }
+}

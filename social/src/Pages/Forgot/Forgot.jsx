@@ -32,6 +32,8 @@ const Forgot = () => {
   }
     
 
+  
+
 
 return (
 

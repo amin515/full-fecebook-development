@@ -7,6 +7,8 @@ import { useState } from 'react'
 import Cookie from 'js-cookie';
 import { useEffect } from 'react'
 import { hideMobileOrEmail } from '../utility/helper'
+import axios from 'axios'
+import createToaste from '../utility/toastMessage'
 
 
 
@@ -49,6 +51,21 @@ const FindAccount = () => {
     }
  }, []);
 
+ // handle continue by you
+ const handleContinueByYou = async (e) => {
+   e.preventDefault();
+   
+    await axios.post('/api/v1/user/send-password-link-otp', {
+      auth : findUser.email ?? findUser.cell
+    })
+    .then( res => {
+      createToaste(res.data.message, 'success');
+      navigate('/authentic/reset-pass')
+    })
+    .catch( err => {
+      createToaste(err.response.data.message)
+    })
+ }
 
   return (
     <>
@@ -74,7 +91,7 @@ const FindAccount = () => {
             <a href="#"></a>
             <div class="reset-btns">
               <a onClick={handleNotYou} class="cancel" href="#">Not you ?</a>
-              <a class="continue" href="#">Continue</a>
+              <a class="continue" href="#" onClick={handleContinueByYou}>Continue</a>
             </div>
           </div>
         </div>

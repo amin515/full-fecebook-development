@@ -26,7 +26,7 @@ function App() {
       <Route path='/' element={ <Home /> }/>
       <Route path='/login' element={ <Auth /> }/>
       <Route path='/profile' element={ <Profile /> }/>
-      <Route path='/authentic' element={ <Authentication /> }/>
+      <Route path='/authentic/:type' element={ <Authentication /> }/>
       <Route path='/forgot-password' element={ <Forgot /> }/>
       <Route path='/find-account' element={ <FindAccount /> }/>
       <Route path='/change-password' element={ <Password /> }/>

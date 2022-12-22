@@ -1,8 +1,32 @@
 
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { useState } from 'react'
+import { useDispatch } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom'
+import { changePassword } from '../../redux/auth/authAction';
+import Cookies from 'js-cookie';
+
+
+
+
 
 const Password = () => {
+  const [password, setPassword] = useState();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+
+
+  // handle change password
+  const handleChangePassword = (e) => {
+   e.preventDefault();
+
+   dispatch(changePassword({
+      id : Cookies.get('cpid'),
+      code : Cookies.get('cpcode'),
+      password : password
+   }, navigate))
+  }
   return (
     <>
       {/* <!-- reset Box  --> */}
@@ -19,14 +43,14 @@ const Password = () => {
               marks.
             </p>
             <div className="code-box">
-              <input className="w-100" type="text" placeholder="New password" />
+              <input className="w-100" type="text" placeholder="New password" value={password} onChange={ (e) => setPassword(e.target.value)}/>
             </div>
           </div>
           <div className="reset-footer">
             <a href="#"></a>
             <div className="reset-btns">
               <Link className="cancel" to="/login">Skip</Link>
-              <a className="continue" href="#">Continue</a>
+              <a onClick={handleChangePassword} className="continue" href="#">Continue</a>
             </div>
           </div>
         </div>

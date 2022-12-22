@@ -1,17 +1,24 @@
 
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import Header from '../../Components/Header/Header';
 import Footer from '../../Components/Footer/Footer';
 import Cookies from "js-cookie";
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import createToaste from '../utility/toastMessage';
-import { accountActivateByOtp, resendActivationLink } from '../../redux/auth/authAction';
-import facebookLogo from '../../assets/icons/facebook.svg'
+import { 
+  accountActivateByOtp, 
+  checkResetPasswordOTP, 
+  resendActivationLink 
+} from '../../redux/auth/authAction';
+
 
 
 const Authentication = () => {
+
+  const {type} = useParams()
+
 
   // dispatch for account activate by otp
 
@@ -37,12 +44,7 @@ const Authentication = () => {
       Cookies.remove('otp');
       navigate("/login")
     }
-    // if not valid activeCookies 
-    useEffect(() => {
-      if(!activateCookie){
-        navigate("/login")
-      }
-    })
+    
 
 
  // activate by code
@@ -68,6 +70,28 @@ const handleResendLink = (e) => {
     email : activateCookie
   }, navigate))
 }
+
+// handle open reset password router
+
+const handleResetPassword = (e) => {
+  e.preventDefault();
+ if(!code){
+  createToaste('OTP is required', 'warn')
+ }else{
+  dispatch(checkResetPasswordOTP({
+    code : code,
+    auth : Cookies.get('otp')
+ }, navigate))
+ }
+ 
+}
+
+// if not valid activeCookies 
+useEffect(() => {
+  if(!activateCookie){
+    navigate("/login")
+  }
+})
 
   return (
     <>
@@ -100,7 +124,7 @@ const handleResendLink = (e) => {
             <a onClick={handleResendLink} href="#">Didn't get a code?</a>
             <div class="reset-btns">
               <a onClick={handleActivationCancel} class="cancel" href="#">Cancel</a>
-              <a onClick={handleActivateByCode} class="continue" href="#">Continue</a>
+              <a onClick={type == 'account' ? handleActivateByCode : handleResetPassword } class="continue" href="#">Continue</a>
             </div>
           </div>
         </div>

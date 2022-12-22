@@ -1,5 +1,5 @@
 import express from 'express';
-import { loggedInUser, login, register, accontActivation, activationByCode, forgotPassword, resetPasswordLink, resendActivationLink, findUserAccount} from '../Controllers/UserControllers.js';
+import { loggedInUser, login, register, accontActivation, activationByCode, forgotPassword, resetPasswordLink, resendActivationLink, findUserAccount,  sendPasswordResetOtp, checkResetPasswordOtp, resetPassword} from '../Controllers/UserControllers.js';
 
 
 
@@ -19,6 +19,13 @@ router.post('/resend-link', resendActivationLink);
 router.post('/forgot-password/', forgotPassword);
 router.post('/forgot-password/:token', resetPasswordLink);
 router.post('/find-user-account', findUserAccount);
+// if forgot password then send verification link
+router.post('/send-password-link-otp', sendPasswordResetOtp);
+// check otp for reset password valid user or not
+router.post('/check-password-link-otp', checkResetPasswordOtp);
+router.post('/user-reset-password', resetPassword);
 
+
+ 
 // exporting router
 export default router;

@@ -43,7 +43,7 @@ export const userRegister =
           // register modal disapier
           setRegister(false);
           // navigate to activate page
-          navigate("/authentic");
+          navigate("/authentic/account");
         })
         .catch((err) => {
           createToaste(err.response.data.message, "error");
@@ -92,7 +92,7 @@ export const resendActivationLink =
     try {
       const active = await axios
         .post("/api/v1/user/resend-link", {
-          auth_1: email,
+          auth: email,
         })
         .then((res) => {
           createToaste(res.data.message, "success");
@@ -128,3 +128,49 @@ export const findAccount =
     }
   };
 
+  // check valid user for reset password 
+export const checkResetPasswordOTP =
+(data , navigate) =>
+async (dispatch) => {
+  try {
+    const checkResetPasswordOtp = await axios
+      .post("/api/v1/user/check-password-link-otp", {
+        code : data.code,
+        auth: data.auth,
+      })
+      .then((res) => {
+        createToaste(res.data.message, "success");
+        navigate('/change-password')
+       
+      })
+      .catch((err) => {
+        createToaste(err.response.data.message, "warn");
+      });
+  } catch (error) {
+    createToaste(error.message, "warn");
+  }
+};
+
+  // now change password  
+  export const changePassword =
+  (data , navigate) =>
+  async (dispatch) => {
+    try {
+      const changePassword = await axios
+        .post("/api/v1/user/user-reset-password", {
+          id : data.id,
+          code : data.code,
+          password: data.password,
+        })
+        .then((res) => {
+          createToaste(res.data.message, "success");
+          navigate('/login')
+         
+        })
+        .catch((err) => {
+          createToaste(err.response.data.message, "warn");
+        });
+    } catch (error) {
+      createToaste(error.message, "warn");
+    }
+  };
