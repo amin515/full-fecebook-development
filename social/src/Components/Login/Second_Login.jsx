@@ -5,8 +5,10 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { userLogin } from '../../redux/auth/authAction';
 import createToaste from '../../Pages/utility/toastMessage';
-const Login = ({setRegister}) => {
-
+const Second_Login = ({setRegister}) => {
+  
+    
+    
   // navigator
   const navigate = useNavigate();
   // dispatch redux function
@@ -29,7 +31,7 @@ const Login = ({setRegister}) => {
   const handleUserLogin = (e) => {
    e.preventDefault();
    if(!input.auth || !input.password){
-     createToaste('All fields are required', 'error');
+     createToaste('All fields are required', 'error')
    }else{
     dispatch(userLogin({
       auth : input.auth,
@@ -73,7 +75,8 @@ const Login = ({setRegister}) => {
               </button>
           </div>
     </>
+    
   )
 }
 
-export default Login;
+export default Second_Login

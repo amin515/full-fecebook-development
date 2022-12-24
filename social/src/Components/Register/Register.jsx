@@ -19,9 +19,7 @@ const month = [
   "Feb", 
   "Mar", 
   "apr", 
-  "May", 
-  "Apr",
-  "May", 
+  "May",  
   "Jun", 
   "Jul", 
   "Aug", 
@@ -44,16 +42,19 @@ const years = Array.from(
 const Register = ({setRegister}) => {
   const navigate = useNavigate();
   const  dispatch  = useDispatch();
-  
+
+  // get year info
+  const date = new Date();
+
   // set input in form data
   const [input, setInput] = useState({
     fname : '',
     sname : '',
     auth : '',
     password : '',
-    day : '',
-    month : '',
-    year : '',
+    day : date.getDate(),
+    month : month[date.getMonth()],
+    year : date.getFullYear(),
     gender : ''
   });
 
@@ -197,14 +198,15 @@ const Register = ({setRegister}) => {
                 <select name="day" id="" onChange={handleGetformData}>
                 {
                    day.map((item, index) => 
-                     <option value={item} key={index}>{item}</option>
+                     <option selected={item === input.day ? true : false} value={item} key={index}>{item}</option>
                     )
                   }
                 </select>
                 <select name="month" id="" onChange={handleGetformData}>
                   {
                    month.map((item, index) => 
-                     <option value={item} key={index}>{item}</option>
+                     
+                     <option selected={item === input.month ? true : false} value={item} key={index}>{item}</option>
                     )
                   }
                   
@@ -212,7 +214,7 @@ const Register = ({setRegister}) => {
                 <select name="year" id="" onChange={handleGetformData}>
                 {
                    years.map((item, index) => 
-                     <option value={item} key={index}>{item}</option>
+                     <option selected={item === input.year ? true : false} value={item} key={index}>{item}</option>
                     )
                   }
                 </select>

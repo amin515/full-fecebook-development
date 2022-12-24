@@ -5,8 +5,10 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { userLogin } from '../../redux/auth/authAction';
 import createToaste from '../../Pages/utility/toastMessage';
-const Login = ({setRegister}) => {
-
+import Header from '../Header/Header';
+import Footer from '../Footer/Footer';
+const SecondLogin = ({setRegister}) => {
+     
   // navigator
   const navigate = useNavigate();
   // dispatch redux function
@@ -29,7 +31,7 @@ const Login = ({setRegister}) => {
   const handleUserLogin = (e) => {
    e.preventDefault();
    if(!input.auth || !input.password){
-     createToaste('All fields are required', 'error');
+     createToaste('All fields are required', 'error')
    }else{
     dispatch(userLogin({
       auth : input.auth,
@@ -40,7 +42,8 @@ const Login = ({setRegister}) => {
 
   return (
     <>
-    <div className="auth-box">
+    <Header />
+    <div className="auth-box-two">
             <form onSubmit={handleUserLogin}>
               <div className="auth-form">
                 <input
@@ -72,8 +75,10 @@ const Login = ({setRegister}) => {
               Create New Account
               </button>
           </div>
+          <Footer />
     </>
+    
   )
 }
 
-export default Login;
+export default SecondLogin;

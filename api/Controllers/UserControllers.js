@@ -324,55 +324,125 @@ export const resendActivationLink = async (req, res, next) => {
  */
 export const login = async (req, res, next) => {
 
+    // try {
+
+    //     // data distructure
+
+    //     const {
+    //         auth,
+    //         password
+    //     } = req.body;
+
+    //     // validator
+    //     if (!auth || !password) {
+    //         next(customError(400, "All fields are required"));
+    //     }
+
+    //     if (!isEMail(auth)) {
+    //         next(customError(400, "Invalid Email"))
+    //     }
+
+    //     // check email exist or not
+    //     const loginUser = await User.findOne({
+    //         email: auth
+    //     })
+
+    //     if (!loginUser) {
+    //         next(customError(400, "Input valid email to go"))
+    //     } else {
+
+
+    //         // verify password
+    //         if (!pwordVerify(password, loginUser.password)) {
+    //             next(customError(400, "wrong password"))
+    //         } else {
+
+    //             // create token
+    //             const token = createToken({
+    //                 id: loginUser._id
+    //             }, '30d')
+    //             // finaly sent responce 
+    //             res.status(200).cookie('authToken', token).json({
+    //                 message: "User login successful",
+    //                 user: loginUser,
+    //                 token: token
+    //             })
+    //         }
+
+    //     }
+
+
+
+    // } catch (error) {
+    //     next(error)
+    // }
+
     try {
-
-        // data distructure
-
         const {
-            email,
+            auth,
             password
         } = req.body;
 
-        // validator
-        if (!email || !password) {
-            next(customError(400, "All fields are required"));
-        }
+        // login by email
+        if (isEMail(auth)) {
 
-        if (!isEMail(email)) {
-            next(customError(400, "Invalid Email"))
-        }
-
-        // check email exist or not
-        const loginUser = await User.findOne({
-            email: email
-        })
-
-        if (!loginUser) {
-            next(customError(400, "Input valid email to go"))
-        } else {
-
-
-            // verify password
-            if (!pwordVerify(password, loginUser.password)) {
-                next(customError(400, "wrong password"))
+            // check email
+            const emailCheck = await User.findOne({
+                email: auth
+            })
+            if (!emailCheck) {
+                return next(customError(400, 'Invalid user email'))
             } else {
+                //check password
+                const userPass = pwordVerify(password, emailCheck.password);
+                if (!userPass) {
+                    return next(customError(400, 'Password not match'))
+                }
 
-                // create token
-                const token = createToken({
-                    id: loginUser._id
-                }, '30d')
-                // finaly sent responce 
-                res.status(200).cookie('authToken', token).json({
-                    message: "User login successful",
-                    user: loginUser,
-                    token: token
-                })
+                if (userPass) {
+                    //create token
+                    const token = createToken({
+                        id: emailCheck._id
+                    }, '30d')
+                    // finaly sent responce 
+                     res.status(200).cookie('authToken', token).json({
+                        message: "User login successful",
+                        user: emailCheck,
+                        token: token
+                    })
+                }
             }
-
         }
+        // login by mobile number
+        if (isMobile(auth)) {
 
+            // check email
+            const mobileCheck = await User.findOne({
+                cell: auth
+            })
+            if (!mobileCheck) {
+                return next(customError(400, 'Invalid user phone'))
+            } else {
+                //check password
+                const userPass = pwordVerify(password, mobileCheck.password);
+                if (!userPass) {
+                    return next(customError(400, 'Password not match'))
+                }
 
-
+                if (userPass) {
+                    //create token
+                    const token = createToken({
+                        id: mobileCheck._id
+                    }, '30d')
+                    // finaly sent responce 
+                     res.status(200).cookie('authToken', token).json({
+                        message: "User login successful",
+                        user: mobileCheck,
+                        token: token
+                    })
+                }
+            }
+        }
     } catch (error) {
         next(error)
     }
@@ -767,7 +837,7 @@ export const sendPasswordResetOtp = async (req, res, next) => {
                 id: checkEmail._id
             }, '30d')
             // sent link to active account
-            sentActivationLink(checkEmail.email, {
+            passwordResetLink(checkEmail.email, {
                 name: checkEmail.first_name + ' ' + checkEmail.sur_name,
                 link: `${process.env.APP_URL +':'+ process.env.SERVER_PORT}/api/v1/user/activation/${activationToken}`,
                 code: accessCode,
@@ -852,26 +922,36 @@ export const checkResetPasswordOtp = async (req, res, next) => {
 }
 
 export const resetPassword = async (req, res, next) => {
-    const { id, password, code} = req.body;
-   try {
-     const userData = await User.findOne().and([{_id : id}, {access_token : code}])
-     if(!userData){
-       return  next(customError(400, 'No user data found'))
-     }
-     if(userData){
-        await User.findByIdAndUpdate(id, {
-            password : hashPassword(password),
-            access_token : null
-        })
-         res.status(200)
-        .clearCookie('cpid')
-        .clearCookie('cpcode')
-        .clearCookie('findAccount')
-        .clearCookie('otp')
-        .json( { message : ' password changed successful' })
-     
-     }
-   } catch (error) {
-    next(error)
-   }
+    const {
+        id,
+        password,
+        code
+    } = req.body;
+    try {
+        const userData = await User.findOne().and([{
+            _id: id
+        }, {
+            access_token: code
+        }])
+        if (!userData) {
+            return next(customError(400, 'No user data found'))
+        }
+        if (userData) {
+            await User.findByIdAndUpdate(id, {
+                password: hashPassword(password),
+                access_token: null
+            })
+            res.status(200)
+                .clearCookie('cpid')
+                .clearCookie('cpcode')
+                .clearCookie('findAccount')
+                .clearCookie('otp')
+                .json({
+                    message: ' password changed successful'
+                })
+
+        }
+    } catch (error) {
+        next(error)
+    }
 }

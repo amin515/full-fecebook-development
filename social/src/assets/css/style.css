@@ -1416,3 +1416,79 @@ Components
 .story-item{
   background: url('https://images.unsplash.com/photo-1630304565761-d6f8d5a0facd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8Y3V0ZSUyMGJhYnl8ZW58MHx8MHx8&w=1000&q=80');
 }
+
+
+.auth-box-two {
+  width: 395px;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgb(0 0 0 / 10%), 0 8px 16px rgb(0 0 0 / 10%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+  height: 50vh;
+  flex-direction: column;
+}
+
+.auth-box-two .auth-form {
+  margin-bottom: 15px;
+}
+
+.auth-box-two .auth-form input {
+  width: 100%;
+  height: 50px;
+  font-size: 17px;
+  padding: 14px 16px;
+  border: 1px solid var(--bg-tertiary);
+  border-radius: 6px;
+  font-weight: 200;
+  font-family: inherit;
+}
+
+.auth-box-two .auth-form input:focus {
+  border-color: var(--blue-color);
+}
+
+.auth-box-two .auth-form button {
+  width: 100%;
+  height: 50px;
+  font-size: 17px;
+  border: 1px solid var(--bg-tertiary);
+  border-radius: 6px;
+  background-color: var(--blue-color);
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.1s;
+}
+
+.auth-box-two .auth-form button:hover {
+  background-color: var(--blue-color-hover);
+}
+
+.auth-box-two a {
+  text-align: center;
+  color: var(--blue-color);
+  font-weight: 600;
+}
+
+.auth-box-two > button {
+  width: 60%;
+  height: 50px;
+  font-size: 17px;
+  border: 1px solid var(--green-color);
+  border-radius: 6px;
+  background-color: var(--green-color);
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.1s;
+  margin: auto;
+}
+
+.auth-box-two > button:hover {
+  background-color: #36a420;
+  border: 1px solid #36a420;
+}

@@ -1,14 +1,22 @@
 // create user register
 
 import axios from "axios";
+import Cookies from "js-cookie";
 import createToaste from "../../Pages/utility/toastMessage";
+import { LOADER_START } from "../top-loader/loaderType";
 import {
+  LOGIN_FAILED,
+  LOGIN_REQUEST,
+  LOGIN_SUCCESS,
   REGISTER_FAILED,
   REGISTER_REQUEST,
   REGISTER_SUCCESS,
+  TOKEN_USER_FAILED,
+  TOKEN_USER_REQ,
+  TOKEN_USER_SUCCESS,
 } from "./actionType";
 
-import cookie from 'js-cookie';
+
 // user register
 export const userRegister =
   (data, setInput, e, setRegister, navigate) => async (dispatch) => {
@@ -68,7 +76,7 @@ export const accountActivateByOtp =
   ({ code, email }, navigate) =>
   async (dispatch) => {
     try {
-      const active = await axios
+       await axios
         .post("/api/v1/user/code-activate", {
           code: code,
           email : email
@@ -90,7 +98,7 @@ export const resendActivationLink =
   ({ email }, navigate) =>
   async (dispatch) => {
     try {
-      const active = await axios
+       await axios
         .post("/api/v1/user/resend-link", {
           auth: email,
         })
@@ -111,7 +119,7 @@ export const findAccount =
   async (dispatch) => {
     try {
       if(auth){
-        const find = await axios
+         await axios
         .post("/api/v1/user/find-user-account", {
           auth: auth,
         })
@@ -156,7 +164,7 @@ async (dispatch) => {
   (data , navigate) =>
   async (dispatch) => {
     try {
-      const changePassword = await axios
+       await axios
         .post("/api/v1/user/user-reset-password", {
           id : data.id,
           code : data.code,
@@ -174,3 +182,83 @@ async (dispatch) => {
       createToaste(error.message, "warn");
     }
   };
+
+
+
+  // user login  
+  export const userLogin =
+  (data , navigate) =>
+  async (dispatch) => {
+    try {
+      dispatch({
+        type : LOGIN_REQUEST
+      })
+       await axios
+        .post("/api/v1/user/login", {
+          auth : data.auth,
+          password : data.password
+        })
+        .then((res) => {
+          dispatch({
+            type : LOGIN_SUCCESS,
+            payload : res.data.user
+          })
+          dispatch({
+            type : LOADER_START
+          })
+          createToaste(res.data.message, "success");
+          navigate('/')
+         
+        })
+        .catch((err) => {
+          dispatch({
+            type : LOGIN_FAILED
+          })
+          createToaste(err.response.data.message, "warn");
+        });
+    } catch (error) {
+      createToaste(error.message, "warn");
+    }
+  };
+
+
+   // user login  
+   export const tokenUser =
+   (navigate) => 
+   async (dispatch) => {
+    const token = Cookies.get('authToken')
+     try {
+       dispatch({
+         type : TOKEN_USER_REQ
+       })
+        await axios
+         .get("/api/v1/user/me", {
+           headers : {
+            Authorization : `Bearer ${token}`
+           }
+         })
+         .then((res) => {
+           dispatch({
+             type : TOKEN_USER_SUCCESS,
+             payload : res.data.user
+           })
+           dispatch({
+             type : LOADER_START
+           })
+           createToaste(res.data.message, "success");
+          //  navigate('/')
+          
+         })
+         .catch((err) => {
+           dispatch({
+             type : TOKEN_USER_FAILED
+           })
+           createToaste(err.response.data.message, "warn");
+         });
+     } catch (error) {
+      dispatch({
+        type : TOKEN_USER_FAILED
+      })
+       createToaste(error.message, "warn");
+     }
+   };
