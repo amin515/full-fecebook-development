@@ -1,7 +1,6 @@
 
 import { Route, Routes } from 'react-router-dom';
 import './App.css';
-import Auth from './Pages/Auth/Auth';
 import Home from './Pages/Home/Home';
 import Profile from './Pages/Profile/Profile';
 import { ToastContainer } from 'react-toastify';
@@ -14,13 +13,16 @@ import SecondLogin from './Components/Login/SecondLogin';
 import LoadingBar from 'react-top-loading-bar';
 import { useDispatch, useSelector } from 'react-redux';
 import { LOADER_END } from './redux/top-loader/loaderType';
-import AuthRejected from './PrivateRoute/AuthRejected';
 import { useEffect } from 'react';
 import { tokenUser } from './redux/auth/authAction';
+import UserRejected from './PrivateRoute/UserRejected';
+import Auth from './Components/Auth/Auth';
+
+
 
 function App() {
 
- 
+  
 
   // use selector
   const loader = useSelector(state => state.loader);
@@ -28,9 +30,11 @@ function App() {
   const tokenDispatch = useDispatch();
 
   useEffect(() => {
-    tokenDispatch(tokenUser())
-  },[]);
+    tokenDispatch(tokenUser());
+  },[tokenDispatch])
 
+
+ 
 
   return (
    <>
@@ -44,8 +48,8 @@ function App() {
     newestOnTop={true}
     />
     <Routes>
-      <Route path='/' element={<AuthRejected><Home /></AuthRejected>}/>
-      <Route path='/login' element={ <Auth /> }/>
+      <Route path='/' element={<Home />}/>
+      <Route path='/login' element={<UserRejected><Auth /></UserRejected>}/>
       <Route path='/sec-login' element={ <SecondLogin /> }/>
       <Route path='/profile' element={ <Profile /> }/>
       <Route path='/authentic/:type' element={ <Authentication /> }/>

@@ -406,7 +406,7 @@ export const login = async (req, res, next) => {
                     }, '30d')
                     // finaly sent responce 
                      res.status(200).cookie('authToken', token).json({
-                        message: "User login successful",
+                        message: "Login successful",
                         user: emailCheck,
                         token: token
                     })
@@ -436,7 +436,7 @@ export const login = async (req, res, next) => {
                     }, '30d')
                     // finaly sent responce 
                      res.status(200).cookie('authToken', token).json({
-                        message: "User login successful",
+                        message: "Login successful",
                         user: mobileCheck,
                         token: token
                     })
@@ -484,7 +484,8 @@ export const loggedInUser = async (req, res, next) => {
                     next(customError(400, 'User data not match'))
                 } else {
                     res.status(200).json({
-                        message: "User data stable",
+                        //no need to send message
+                        // message: "Login Successful",
                         user: loggedInUser
                     })
                 }

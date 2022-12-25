@@ -2,6 +2,7 @@
 
 import axios from "axios";
 import Cookies from "js-cookie";
+
 import createToaste from "../../Pages/utility/toastMessage";
 import { LOADER_START } from "../top-loader/loaderType";
 import {
@@ -14,6 +15,7 @@ import {
   TOKEN_USER_FAILED,
   TOKEN_USER_REQ,
   TOKEN_USER_SUCCESS,
+  USER_LOGOUT,
 } from "./actionType";
 
 
@@ -224,7 +226,7 @@ async (dispatch) => {
 
    // user login  
    export const tokenUser =
-   (navigate) => 
+   ( navigate) => 
    async (dispatch) => {
     const token = Cookies.get('authToken')
      try {
@@ -246,19 +248,36 @@ async (dispatch) => {
              type : LOADER_START
            })
            createToaste(res.data.message, "success");
-          //  navigate('/')
+          
           
          })
          .catch((err) => {
            dispatch({
              type : TOKEN_USER_FAILED
            })
+           dispatch(userLogout())
            createToaste(err.response.data.message, "warn");
+        
          });
      } catch (error) {
+     
       dispatch({
-        type : TOKEN_USER_FAILED
+        type : TOKEN_USER_FAILED,
+        
       })
+      dispatch(userLogout())
        createToaste(error.message, "warn");
+       
      }
    };
+
+   export const userLogout = (navigate) => (dispatch) => {
+    dispatch({
+      type :LOADER_START
+    })
+    Cookies.remove('authToken')
+    dispatch({
+      type : USER_LOGOUT
+    })
+    navigate('/login')
+   }

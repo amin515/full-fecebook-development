@@ -1,13 +1,23 @@
 import React from 'react'
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import Avatar from '../../Components/Avatar/Avatar';
+import { userLogout } from '../../redux/auth/authAction';
 
 
 const HomeHeader = () => {
 
 // use selector redux function
-const { user } = useSelector(state => state.auth)
+const { user } = useSelector(state => state.auth);
 
+const dispatch = useDispatch();
+const navigate = useNavigate()
+
+// handle logout user
+const handleLogoutUser = (e) => {
+  e.preventDefault();
+  dispatch(userLogout(navigate))
+}
   return (
 
   <>
@@ -60,7 +70,7 @@ const { user } = useSelector(state => state.auth)
                   <a href="#">
                     <div className="user-menu-icon"></div>
                     <div className="user-menu-item">
-                      <span>Logout</span>
+                      <span onClick={handleLogoutUser}>Logout</span>
                     </div>
                   </a>
                 </li>
