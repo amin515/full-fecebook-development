@@ -85,7 +85,7 @@ export const accountActivateByOtp =
         })
         .then((res) => {
           createToaste("Account Activate successful", "success");
-          navigate("/login");
+          navigate("/");
         })
         .catch((err) => {
           createToaste(err.response.data.message, "warn");
@@ -279,5 +279,5 @@ async (dispatch) => {
     dispatch({
       type : USER_LOGOUT
     })
-    navigate('/login')
+    navigate('/')
    }

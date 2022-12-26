@@ -14,7 +14,6 @@ const Home = () => {
   
   
   const {loginState} = useSelector(state => state.auth)
-  console.log(loginState)
   return (
     
    <>

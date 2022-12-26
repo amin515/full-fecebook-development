@@ -9,14 +9,19 @@ import Authentication from './Pages/Authentication/Authentication';
 import Forgot from './Pages/Forgot/Forgot';
 import FindAccount from './Pages/FindAccount/FindAccount';
 import Password from './Pages/Password/Password';
-import SecondLogin from './Components/Login/SecondLogin';
 import LoadingBar from 'react-top-loading-bar';
 import { useDispatch, useSelector } from 'react-redux';
 import { LOADER_END } from './redux/top-loader/loaderType';
 import { useEffect } from 'react';
 import { tokenUser } from './redux/auth/authAction';
+import LoginPage from './Pages/LoginPage/LoginPage';
+import RegisterPage from './Pages/RegisterPage/RegisterPage';
+import Friends from './Pages/Friends/Friends';
+import UserRedirect from './PrivateRoute/UserRedirect';
 import UserRejected from './PrivateRoute/UserRejected';
-import Auth from './Components/Auth/Auth';
+import { LogedInRoute } from './PrivateRoute/LogedInRoute';
+import { LoggedOutRoute } from './PrivateRoute/LoggedOutRoute';
+import ToolTip from './Components/ToolTip/ToolTip';
 
 
 
@@ -49,10 +54,21 @@ function App() {
     />
     <Routes>
       <Route path='/' element={<Home />}/>
-      <Route path='/login' element={<UserRejected><Auth /></UserRejected>}/>
-      <Route path='/sec-login' element={ <SecondLogin /> }/>
-      <Route path='/profile' element={ <Profile /> }/>
+
+      <Route element={<LoggedOutRoute/>}>
+      <Route path='/login' element={<LoginPage />}/>
+      <Route path='/register' element={<RegisterPage />}/>
+      </Route>
+      
+
+
+      <Route element={<LogedInRoute />}>
+      <Route path='/profile' element={ <Profile /> } />
+      <Route path='/friends' element={ <Friends /> } />
+      </Route>
+      
       <Route path='/authentic/:type' element={ <Authentication /> }/>
+      <Route path='/tool' element={ <ToolTip /> }/>
       <Route path='/forgot-password' element={ <Forgot /> }/>
       <Route path='/find-account' element={ <FindAccount /> }/>
       <Route path='/change-password' element={ <Password /> }/>

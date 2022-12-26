@@ -6,6 +6,7 @@ import createToaste from '../../Pages/utility/toastMessage'
 import { useDispatch } from 'react-redux';
 import { userRegister } from '../../redux/auth/authAction';
 import { useNavigate } from 'react-router-dom';
+import ToolTip from '../ToolTip/ToolTip';
 
 // get fb date
 const day = [1,2,3,4,5,6,7,8,9,10,
@@ -40,8 +41,15 @@ const years = Array.from(
 
 
 const Register = ({setRegister}) => {
+
+  
   const navigate = useNavigate();
   const  dispatch  = useDispatch();
+
+  const [tolTip, setTolTip] = useState({});
+  
+  const [fieldEdit, setFieldEdit] = useState({})
+  console.log(tolTip)
 
   // get year info
   const date = new Date();
@@ -81,7 +89,10 @@ const Register = ({setRegister}) => {
  // handle validate change
  const handleValidateChange = (e) => {
   const fieldName = e.target.name;
-  
+  setTolTip((prevState) => ( {
+    ...prevState,
+    [fieldName] : false
+   }))
   if( !input[fieldName] ){
     setValidate( (prevState) => ( {
       ...prevState,
@@ -95,7 +106,7 @@ const Register = ({setRegister}) => {
   };
  };
 
- // handle validate change focus
+ // handle validate change focus border
  const handleValidateChangeFocus = (e) => {
   const fieldName = e.target.name;
   
@@ -103,6 +114,21 @@ const Register = ({setRegister}) => {
     ...prevState,
     [fieldName] : false
   }));
+  setFieldEdit((prevState) => ( {
+    ...prevState,
+    [fieldName] : true
+   }))
+   if(e.target.value){
+    setTolTip((prevState) => ( {
+      ...prevState,
+      [fieldName] : false
+     }))
+   }else{
+    setTolTip((prevState) => ( {
+      ...prevState,
+      [fieldName] : true
+     }))
+   }
   };
  
   // submit form
@@ -137,6 +163,9 @@ const Register = ({setRegister}) => {
    }
   }
 
+  // handle 
+
+
  
   return (
     <div className="blur-box">
@@ -153,6 +182,11 @@ const Register = ({setRegister}) => {
         <div className="sign-up-body">
           <form onSubmit={ handleSubmitForm }>
             <div className="reg-form reg-form-inline">
+               {
+                tolTip.fname && fieldEdit.fname && <ToolTip data={'First Name'}/>
+               }
+                
+              
               <input type="text" placeholder="First Name" 
               className={validate.fname && 'error-border'}
               name='fname'
@@ -161,7 +195,9 @@ const Register = ({setRegister}) => {
               onBlur={handleValidateChange}
               onFocus={handleValidateChangeFocus}
               />
-              
+               {                                                       // tool tip class name
+                tolTip.sname && fieldEdit.sname && <ToolTip data={'Sur Name'} surname={true} reactingle={true}/>
+               }
               <input type="text" placeholder="Surname" 
               className={validate.sname && 'error-border'}
               name='sname'
@@ -173,6 +209,9 @@ const Register = ({setRegister}) => {
               
             </div>
             <div className="reg-form">
+              {                                                                   // tool tip class name
+                tolTip.auth && fieldEdit.auth && <ToolTip data={'Email or Phone'} pwword={true}/>
+               }
               <input type="text" placeholder="Mobile number or email address" 
               className={validate.auth && 'error-border'}
               name='auth'
@@ -183,6 +222,9 @@ const Register = ({setRegister}) => {
               />
             </div>
             <div className="reg-form">
+               {
+                tolTip.password && fieldEdit.password && <ToolTip data={'Password'} pwword={true}/>
+               }
               <input type="password" placeholder="New password" 
               className={validate.password && 'error-border'}
               name='password'
