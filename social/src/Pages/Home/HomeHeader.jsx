@@ -18,13 +18,17 @@ const handleLogoutUser = (e) => {
   e.preventDefault();
   dispatch(userLogout(navigate))
 }
+// handle redirect profile page
+const handleProfilePage = () => {
+  navigate('/profile')
+}
   return (
 
   <>
     <div className="user-menu-dropdown">
             <div className="user-menu-box">
               <div className="user-data-box">
-                <div className="user-data-box-item">
+                <div onClick={handleProfilePage} className="user-data-box-item">
                   <Avatar />
                   <span>{`${user.first_name} ${user.sur_name}`}</span>
                 </div>

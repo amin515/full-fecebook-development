@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react'
+import React from 'react';
 import './ToolTip.css';
 const ToolTip = ({data, surname, pwword, reactingle}) => {
   

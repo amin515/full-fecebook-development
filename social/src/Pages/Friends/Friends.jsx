@@ -1,9 +1,12 @@
 import React from 'react'
+import FbHeader from '../../Components/FB-TOP-HEADER/FbHeader';
+
 
 const Friends = () => {
   return (
     <>
-     friends
+    <FbHeader />
+     
     </>
   )
 }

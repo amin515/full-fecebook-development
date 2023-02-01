@@ -17,11 +17,9 @@ import { tokenUser } from './redux/auth/authAction';
 import LoginPage from './Pages/LoginPage/LoginPage';
 import RegisterPage from './Pages/RegisterPage/RegisterPage';
 import Friends from './Pages/Friends/Friends';
-import UserRedirect from './PrivateRoute/UserRedirect';
-import UserRejected from './PrivateRoute/UserRejected';
 import { LogedInRoute } from './PrivateRoute/LogedInRoute';
 import { LoggedOutRoute } from './PrivateRoute/LoggedOutRoute';
-import ToolTip from './Components/ToolTip/ToolTip';
+
 
 
 
@@ -68,7 +66,6 @@ function App() {
       </Route>
       
       <Route path='/authentic/:type' element={ <Authentication /> }/>
-      <Route path='/tool' element={ <ToolTip /> }/>
       <Route path='/forgot-password' element={ <Forgot /> }/>
       <Route path='/find-account' element={ <FindAccount /> }/>
       <Route path='/change-password' element={ <Password /> }/>

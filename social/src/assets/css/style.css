@@ -987,6 +987,7 @@ Components
   padding: 10px;
   border-radius: 8px;
   box-shadow: 0px 5px 12px rgba(52, 72, 84, 0.2);
+
 }
 
 .fb-user-item .user-menu-dropdown .user-data-box {
@@ -1491,4 +1492,502 @@ Components
 .auth-box-two > button:hover {
   background-color: #36a420;
   border: 1px solid #36a420;
+}
+
+
+
+/* new css 12/01/2023 */
+
+
+/* Facebook Profile  */
+.fb-profile-header {
+  margin-top: 57px;
+  /* z-index: -9999999;
+  position: relative; */
+  box-shadow: 0 2px 3px rgb(0 0 0 / 10%), 0 0px 0px rgb(0 0 0 / 10%);
+}
+
+.fb-header-shad {
+  width: 100%;
+  height: 300px;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0));
+  position: absolute;
+  z-index: -999999;
+}
+
+.fb-profile-header .fb-cover-photo {
+  width: 80%;
+  height: 500px;
+  border-radius: 0px 0px 10px 10px;
+  overflow: hidden;
+  margin: 0px auto;
+  position: relative;
+  z-index: -999999;
+}
+
+.fb-profile-header .fb-cover-photo::after {
+  content: "";
+  display: block;
+  clear: both;
+  width: 100%;
+  height: 100px;
+  background-image: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.7));
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  margin: auto;
+  z-index: -999999;
+}
+
+.fb-profile-header .fb-cover-photo img {
+  width: 100%;
+  height: auto;
+  position: absolute;
+  top: 0px;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  margin: auto;
+ 
+}
+
+.fb-profile-header .fb-cover-photo button {
+  position: absolute;
+  bottom: 20px;
+  right: 30px;
+  padding: 6px 12px;
+  font-size: 14px;
+  font-weight: 900;
+  border: 0px;
+  border-radius: 5px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 3px;
+  background-color: #fff;
+  font-family: inherit;
+  z-index: 9999999;
+}
+
+.fb-profile-header .fb-cover-photo button:hover {
+  background-color: #f4f4f4;
+}
+
+span.camera-icon {
+  display: block;
+  width: 20px;
+  height: 20px;
+  background-image: url("../icons/profile.png");
+  background-position: 0px 156px;
+}
+
+.fb-profile-details {
+  width: 1200px;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  transform: translate(0px, -40px);
+}
+
+.fb-profile-details .profile-info {
+  width: 1200px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-end;
+  gap: 10px;
+}
+.fb-profile-details .profile-info .profile-desc {
+  margin-bottom: 20px;
+}
+
+.fb-profile-details .profile-info .profile-desc h1 {
+  font-size: 36px;
+  font-family: inherit;
+}
+
+.fb-profile-details .profile-info .profile-desc .profile-friends-list ul {
+  display: flex;
+}
+
+.fb-profile-details .profile-info .profile-desc .profile-friends-list ul li {
+  margin-left: -5px;
+  cursor: pointer;
+}
+
+.fb-profile-details
+  .profile-info
+  .profile-desc
+  .profile-friends-list
+  ul
+  li
+  img {
+  width: 35px;
+  height: 35px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  border-radius: 50%;
+}
+
+.profile-photo img {
+  width: 180px;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 5px solid #fff;
+}
+
+.profile-action {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 10px;
+  width: 500px;
+}
+
+.profile-action button {
+  padding: 7px 12px;
+  font-size: 16px;
+  font-family: inherit;
+  background-color: #f0f2f5;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  gap: 5px;
+  font-weight: bold;
+}
+
+.profile-action button span:first-child {
+  width: 18px;
+  height: 18px;
+  display: block;
+}
+
+.profile-action button:nth-child(1) span.follow-icon {
+  background-image: url("../icons/profile.png");
+}
+
+.profile-action button:nth-child(2) span:first-child {
+  background-image: url("../icons/profile.png");
+  background-position: 0px 187px;
+}
+
+.profile-action button:nth-child(3) span:first-child {
+  background-image: url("../icons/profile.png");
+  background-position: 0px 120px;
+}
+
+
+.profile-action button.blue{
+  background-color: #2374e1;
+}
+.profile-action button.blue span{
+ filter: invert(1);
+}
+
+.fb-profile-body {
+  min-height: 300px;
+  width: 100%;
+  background-color: #f0f2f5;
+  /* z-index: -111;
+  position: relative; */
+}
+
+.fb-profile-menu {
+  width: 1200px;
+  margin: auto;
+  border-top: 1px solid #ccced2;
+}
+
+.fb-profile-menu ul {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 5px;
+}
+
+.fb-profile-menu ul li a {
+  padding: 20px 20px;
+  display: block;
+  font-size: 16px;
+  font-family: inherit;
+}
+
+
+/* my css for personal account timeline css*/
+
+.fb-body-wrapper{
+  width: 1200px;
+  margin: auto;
+  padding: 10px 0;
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+.user-personal-personal-info{
+  width: 40%;
+}
+.fb-profile-post{
+  width: 60%;
+}
+
+
+
+.user-personal-info .bio{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+ }
+
+
+
+
+  a.personal-info-button{
+     width: 100%;
+     height: 35px;
+     font-weight: bold;
+     border: none;
+     background-color: #dfe1e2;
+     cursor: pointer;
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     border-radius: 5px;
+     margin-bottom: 10px;
+
+ }
+  a.personal-info-button:hover{
+     background-color: #bbbdbe;
+     
+ }
+ 
+ 
+
+ .personal-info-details ul li img {
+   margin-right: 10px;
+     cursor: pointer;
+     filter: contrast(0.1);
+ }
+ 
+ .personal-info-details ul li {
+   display: flex;
+   align-items: center;
+   margin: 20px 0;
+ }
+ 
+ .personal-info-details ul li span .bio-editor{
+   cursor: pointer;
+ }
+ .personal-info-details ul li span.bio-editor:hover{
+   text-decoration: underline;
+ }
+
+ .personal-info-details ul li img{
+   filter: blur(.1);
+ }
+
+
+
+
+
+
+
+
+
+.hobbie-list{
+  display: flex;
+  justify-content: flex-start;
+  cursor: pointer;
+  padding: 10px 0;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+.hobbie-list-item{
+  display: flex;
+  justify-content: flex-start;
+  gap: 5px;
+  border: 1px solid rgb(209, 207, 207);
+  padding: 5px 10px;
+  border-radius: 30px;
+  background-color: #e4e6e9;
+}
+.hobbie-list :hover{
+  background-color: #cbcbcc;
+}
+.hobbie-list-item img{
+ width: 15px;
+ height: 15px;
+}
+.hobbie-list-item p{
+ font-weight: bold;
+ font-size: 12px;
+}
+
+.hobbies{
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: column;
+}
+
+.hobbie-list button{
+  padding: 8px;
+  border: none;
+  border-radius: 30px;
+  font-weight: bold;
+  color: #66d9ef;
+  transform: .4s;
+}
+.hobbie-list button:hover{
+ color: #fff;
+}
+
+
+/* .personal-features{
+ 
+} */
+
+.profile-featured-content{
+  display: flex;
+  flex-direction: row;
+}
+.profile-features-gallary{
+  display: flex;
+  align-items: center;
+  width: 100%;
+  position: relative;
+}
+
+.profile-features-item{
+  width: 96%;
+  height: 250px;
+  overflow: hidden;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+.profile-featured-image{
+  width: 100%;
+  height: 100%;
+  background-position: center;
+  background-size: cover;
+  border-radius: 5px;
+  margin-bottom: 15px;
+  cursor: pointer;
+  transition: all ease-in-out .3s;
+  filter: brightness(0.8);
+}
+
+.featured-item-count{
+  color: #fff;
+  position: absolute;
+  bottom: 20px;
+  left: 10px;
+  font-weight: bold;
+  font-family: inherit;
+  font-size: 14px;
+}
+
+.profile-featured-image:hover{
+  filter: brightness(0.6);
+  transform: scale(1.2);
+}
+
+
+
+.profile-gallery-header{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.profile-gallery-header a{
+  transition: .3s;
+}
+.profile-gallery-header a:hover{
+  color: #66d9ef;
+}
+
+.profile-gallery-item{
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 3px;
+  border-radius: 5px;
+  margin-top: 10px;
+}
+
+.profile-gallery-item a{
+  width: 32%;
+  height: auto;
+  display: block;
+  overflow: hidden;
+}
+
+.profile-gallery-item a img{
+  width: 100%;
+  height: 150px;
+  transition: all ease-in .2s;
+}
+
+.profile-gallery-item a img:hover{
+  filter: brightness(.6);
+}
+
+.profile-gallery-item a:nth-child(1) img{
+  border-radius: 10px 0 0 0;
+}
+.profile-gallery-item a:nth-child(3) img{
+  border-radius: 0 10px 0 0;
+}
+.profile-gallery-item a:nth-child(7) img{
+  border-radius: 0 0 0 10px;
+}
+.profile-gallery-item a:nth-child(9) img{
+  border-radius: 0 0 10px 0;
+}
+
+
+
+
+
+
+/* friends sec */
+
+.friends-count{
+  font-size: 12px;
+  color: #65675b;
+}
+
+.profile-friends-area{
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 3px;
+}
+
+
+.profile-item{
+  width: 32%;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+}
+.profile-item img{
+  width: 100%;
+  height: 150px;
+  border-radius: 6px;
+}
+
+.profile-item a{
+  font-weight: bold;
+  font-size: 13px;
 }
