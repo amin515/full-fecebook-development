@@ -4,7 +4,7 @@
  * 
  */
 
-import { LOGIN_FAILED, LOGIN_SUCCESS, REGISTER_FAILED, REGISTER_REQUEST, REGISTER_SUCCESS, TOKEN_USER_FAILED, TOKEN_USER_SUCCESS, USER_LOGOUT } from "./actionType.js";
+import { LOGIN_FAILED, LOGIN_SUCCESS, REGISTER_FAILED, REGISTER_REQUEST, REGISTER_SUCCESS, TOKEN_USER_FAILED, TOKEN_USER_SUCCESS, USER_LOGOUT, USER_PROFILE_UPDATE, USER_SAVE_INFO_UPDATE } from "./actionType.js";
 import initialState from "./initialState";
 
 const authReducer = (state = initialState, {type, payload}) => {
@@ -59,6 +59,22 @@ const authReducer = (state = initialState, {type, payload}) => {
                 ...state,
                 loginState : false,
                 user : null,
+            }
+            case USER_PROFILE_UPDATE:
+            return {
+                ...state,
+                user :{
+               ...state.user,
+                ...payload
+                }
+            }
+            case USER_SAVE_INFO_UPDATE:
+            return {
+                ...state,
+                user :{
+               ...state.user,
+                ...payload
+                }
             }
            
     

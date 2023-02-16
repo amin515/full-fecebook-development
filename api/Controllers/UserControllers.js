@@ -700,7 +700,7 @@ export const resetPasswordLink = async (req, res, next) => {
 
 
 /**
- * Find use account
+ * Find user account
  */
 
 export const findUserAccount = async (req, res, next) => {
@@ -766,7 +766,12 @@ export const findUserAccount = async (req, res, next) => {
     }
 }
 
-
+/**
+ * send password reset otp
+ * @param {*} req 
+ * @param {*} res 
+ * @param {*} next 
+ */
 export const sendPasswordResetOtp = async (req, res, next) => {
 
     const {
@@ -864,7 +869,14 @@ export const sendPasswordResetOtp = async (req, res, next) => {
 
 }
 
-
+/**
+ * check reset password otp
+ * 
+ * @param {*} req 
+ * @param {*} res 
+ * @param {*} next 
+ * @returns 
+ */
 export const checkResetPasswordOtp = async (req, res, next) => {
 
 
@@ -922,6 +934,13 @@ export const checkResetPasswordOtp = async (req, res, next) => {
     }
 }
 
+/**
+ * reset password
+ * @param {*} req 
+ * @param {*} res 
+ * @param {*} next 
+ * @returns 
+ */
 export const resetPassword = async (req, res, next) => {
     const {
         id,
@@ -955,4 +974,53 @@ export const resetPassword = async (req, res, next) => {
     } catch (error) {
         next(error)
     }
+}
+
+/**
+ * profile user update
+ * @status private
+ */
+
+// export const userProfileUpdate = async(req, res, next) => {
+//   try {
+//     const { id } = req.params;
+//     const data = req.body;
+    
+//     res.json(id, data)
+//     // const user = await User.findByIdAndUpdate(id, data)
+
+//     // if( user ){
+//     //   res.status(200).json({
+//     //     msg : "Profile update successful"
+//     //   })
+//     // }
+
+//     // if( !user ){
+//     //  next(customError(400, 'Profile update failed')) 
+//     // }
+//   } catch (error) {
+//    console.log(next(error)) 
+//   }
+// }
+
+export const userProfileUpdater = async(req, res, next) => {
+  try {
+    const { id } = req.params;
+    const data = req.body;
+
+    const user = await User.findByIdAndUpdate(id, data)
+
+    if( user ){
+      res.status(200).json({
+        msg : "Profile update successful",
+        
+      })
+    }
+
+    if( !user ){
+     next(customError(400, 'Profile update failed'))
+     }
+  } catch (error) {
+    console.log(next(error)) 
+  }
 }

@@ -49,7 +49,7 @@ const Register = ({setRegister}) => {
   const [tolTip, setTolTip] = useState({});
   
   const [fieldEdit, setFieldEdit] = useState({})
-  console.log(tolTip)
+
 
   // get year info
   const date = new Date();

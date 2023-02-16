@@ -457,6 +457,7 @@ Components
   top: 0px;
   top: 0px;
   width: 100%;
+  z-index: 9999999999999999;
 }
 
 .fb-home-menu ul {
@@ -1522,7 +1523,7 @@ Components
   overflow: hidden;
   margin: 0px auto;
   position: relative;
-  z-index: -999999;
+  /* z-index: -999999; */
 }
 
 .fb-profile-header .fb-cover-photo::after {
@@ -1568,7 +1569,7 @@ Components
   gap: 3px;
   background-color: #fff;
   font-family: inherit;
-  z-index: 9999999;
+  z-index: 999999999;
 }
 
 .fb-profile-header .fb-cover-photo button:hover {
@@ -1847,7 +1848,8 @@ span.camera-icon {
   transform: .4s;
 }
 .hobbie-list button:hover{
- color: #fff;
+ background-color: #cbcbcc;
+ color: #66d9ef !important;
 }
 
 
@@ -1990,4 +1992,194 @@ span.camera-icon {
 .profile-item a{
   font-weight: bold;
   font-size: 13px;
+}
+
+
+.quick-change{
+  width: 100%;
+}
+
+.quick-change textarea{
+    width: 100%;
+    height: 70px;
+    border: none;
+    background-color: #f5f3f3;
+    border-radius: 5px;
+    text-align: center;
+    padding: 20px 0;
+ 
+}
+
+.quick-change textarea:hover{
+  background-color: #ececec;
+}
+.quick-change textarea:focus{
+  background-color: #fff;
+  outline-color: #23a9f2;
+}
+
+.quick-change textarea::placeholder{
+  text-align: center;
+  position:relative;
+  top: 25px
+  
+}
+.quick-change p{
+  text-align: right;
+  font-size: 10px;
+  color:#b6b6b6;
+}
+
+.quick-change-content{
+  display: flex;
+  justify-content: space-between;
+}
+
+.quick-change-content .bio-status{
+  width: 21px;
+  height: 21px;
+
+}
+
+.quick-change-content .bio-status span{
+  margin-left: 25px;
+  font-weight: bold;
+}
+
+.quick-change-content .bio-btn{
+  display: flex;
+  gap: 5px;
+}
+.quick-change-content .bio-btn button{
+  border: none;
+  padding: 7px 12px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-weight: bold;
+}
+
+.active-save-btn{
+  background-color: #2374e1;
+  color: #fff;
+}
+
+
+.profile-intro{
+  max-height: 600px;
+  max-width: 600px;
+  overflow: auto;
+}
+.customize-intro{
+  padding: 15px 20px;
+  
+}
+.customize-detailes-sec{
+  padding: 0 20px;
+}
+.customize-intro-section p{
+  font-size: 12px;
+  color: #acabab;
+}
+.working-sec{
+  display: flex;
+  flex-direction: column;
+  padding: 10px 0;
+}
+.working-edit{
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 0;
+}
+.working-edit img{
+ 
+  filter: invert(40%) sepia(52%) saturate(200%) saturate(200%) saturate(200%) saturate(189%) hue-rotate(191deg) brightness(103%) contrast(102%);
+}
+.working-edit a{
+  font-weight: bold;
+  color: #2e89ff;
+}
+.working-edit a:hover{
+  text-decoration: underline;
+}
+
+.footer-modal-wraper{
+  display: flex;
+  justify-content: space-between;
+}
+
+.footer-modal-content span a{
+  color: #25aff3;
+  font-weight: 800;
+}
+
+.profile-modal-footer{
+  border-top: 1px solid #ccc;
+
+}
+.footer-modal-wraper{
+  padding: 10px 20px;
+}
+.footer-modal-btn{
+  display: flex;
+  gap: 7px;
+}
+
+
+.footer-modal-btn button{
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  font-family: inherit;
+}
+.footer-modal-btn button:last-child{
+  background-color: #25aff3;
+  border: none;
+  padding: 7px 28px;
+  color: #fff;
+  border-radius: 5px;
+}
+.footer-modal-btn button:first-child{
+  border: none;
+  padding: 7px 12px;
+  border-radius: 5px;
+  
+}
+
+
+.profile-intro-data{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 10px 0;
+}
+
+.profile-intro-data-wrapper{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-left: 8px;
+}
+
+.profile-intro-data-wrappper-edit{
+  cursor: pointer;
+}
+
+.del-btn-profile-intro-work{
+  background-position: 0 1687px;
+  width: 23px;
+  height: 23px;
+}
+.del-btn-profile-intro-work1{
+  background-position: 0 1687px;
+  width: 23px;
+  height: 23px;
+}
+
+.graduate-profile-img{
+  background-position: 0 1687px;
+  width: 23px;
+  height: 23px;
 }

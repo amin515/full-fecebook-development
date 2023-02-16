@@ -1,0 +1,69 @@
+
+.quick-change{
+    width: 100%;
+  }
+  
+  .quick-change textarea{
+      width: 100%;
+      height: 70px;
+      border: none;
+      background-color: #f5f3f3;
+      border-radius: 5px;
+      text-align: center;
+      padding: 10px 0;
+      margin: 6px 0;
+   
+  }
+  
+  .quick-change textarea:hover{
+    background-color: #ececec;
+  }
+  .quick-change textarea:focus{
+    background-color: #fff;
+    outline-color: #23a9f2;
+  }
+  
+  .quick-change textarea::placeholder{
+    text-align: center;
+    position:relative;
+    top: 10px;
+    
+  }
+  .quick-change p{
+    text-align: right;
+    font-size: 10px;
+    color:#b6b6b6;
+  }
+  
+  .quick-change-content{
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .quick-change-content .bio-status{
+    width: 21px;
+    height: 21px;
+  
+  }
+  
+  .quick-change-content .bio-status span{
+    margin-left: 25px;
+    font-weight: bold;
+  }
+  
+  .quick-change-content .bio-btn{
+    display: flex;
+    gap: 5px;
+  }
+  .quick-change-content .bio-btn button{
+    border: none;
+    padding: 7px 12px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-weight: bold;
+  }
+  
+  .active-save-btn{
+    background-color: #2374e1;
+    color: #fff;
+  }

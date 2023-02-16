@@ -16,6 +16,8 @@ import {
   TOKEN_USER_REQ,
   TOKEN_USER_SUCCESS,
   USER_LOGOUT,
+  USER_PROFILE_UPDATE,
+  USER_SAVE_INFO_UPDATE,
 } from "./actionType";
 
 
@@ -271,6 +273,7 @@ async (dispatch) => {
      }
    };
 
+  //  user logout
    export const userLogout = (navigate) => (dispatch) => {
     dispatch({
       type :LOADER_START
@@ -280,4 +283,33 @@ async (dispatch) => {
       type : USER_LOGOUT
     })
     navigate('/')
+   }
+
+   export const userUpdateProfile = (data, id, setBioShow) => async(dispatch) => {
+      
+    try {
+      await axios.put(`/api/v1/user/profile-updater/${id}`, data)
+      .then( res => {
+        setBioShow(false)
+       dispatch({
+        type : USER_PROFILE_UPDATE, payload : data
+       })
+      
+      })
+      .catch( err => {
+        console.log(err.message)
+      })
+    } catch (error) {
+      console.log(error.message)
+    }
+   }
+   export const saveInfoModal = (data,  setEnableProfile) => async(dispatch) => {
+     
+    try {
+      dispatch({type : USER_SAVE_INFO_UPDATE, payload : data})
+      setEnableProfile(true)
+    } catch (error) {
+      console.log(error.message)
+    }
+    
    }

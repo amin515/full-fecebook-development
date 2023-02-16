@@ -1,11 +1,23 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import Avatar from '../../Components/Avatar/Avatar';
-
 import fb_photo from '../../assets/icons/favicon.ico'
 import HomeHeader from '../../Pages/Home/HomeHeader';
 import { Link } from 'react-router-dom';
+import usePoopupClose from '../../Hooks/usePoopupClose';
+
+
+
 const FbHeader = () => {
-    const [userMenu, setUserMenu] = useState(false)
+
+
+    const [userMenu, setUserMenu] = useState(false);
+
+
+    const useMenu = useRef(null);
+    usePoopupClose(useMenu, setUserMenu)
+
+ 
+
   return (
     <>
     <div className="fb-home-header">
@@ -168,7 +180,7 @@ const FbHeader = () => {
               /></svg
           ></a>
         </div>
-        <div onClick={() => setUserMenu(!userMenu)} className="fb-user-item">
+        <div onClick={() => setUserMenu(!userMenu)} className="fb-user-item" ref={useMenu}>
          {userMenu && <HomeHeader/>}
          <Avatar/>
         </div>

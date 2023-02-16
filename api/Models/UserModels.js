@@ -25,7 +25,6 @@ const userSchema = mongoose.Schema({
     },
     email : {
         type : String,
-        unique : true,
         trim : true
     },
     auth : {
@@ -34,7 +33,6 @@ const userSchema = mongoose.Schema({
     },
     cell : {
         type : String,
-        unique : true,
         trim : true
     },
     password : {
@@ -72,19 +70,28 @@ const userSchema = mongoose.Schema({
         type : String,
         default : null
     },
+    category : {
+        type : String,
+        default : null
+    },
     work : {
         type : Array,
         default : []
     },
-    edu : {
+    collage_versity : {
         type : Array,
         default : []
     },
+    primary : {
+        type : Array,
+        default : []
+    },
+
     living : {
         type : String,
     },
    
-    home_town : {
+    hometown : {
         type : String,
     },
     relationship : {

@@ -5,7 +5,7 @@ import Avatar from '../../Components/Avatar/Avatar';
 import { userLogout } from '../../redux/auth/authAction';
 
 
-const HomeHeader = () => {
+const HomeHeader = ({useMenu}) => {
 
 // use selector redux function
 const { user } = useSelector(state => state.auth);
@@ -22,10 +22,14 @@ const handleLogoutUser = (e) => {
 const handleProfilePage = () => {
   navigate('/profile')
 }
+
+
+
   return (
 
   <>
-    <div className="user-menu-dropdown">
+  
+    <div className="user-menu-dropdown" ref={useMenu}>
             <div className="user-menu-box">
               <div className="user-data-box">
                 <div onClick={handleProfilePage} className="user-data-box-item">

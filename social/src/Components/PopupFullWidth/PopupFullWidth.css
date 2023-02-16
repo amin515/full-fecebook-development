@@ -1,0 +1,41 @@
+
+.popup-full-wrapper{
+    background-color: #000;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 9999999999;
+}
+
+
+.popup-full-wrapper .popupfull-close{
+    display: flex;
+    justify-content: space-between;
+   margin-top: 10px;
+
+}
+
+.popup-full-wrapper .popupfull-close .popup-wrapper-left{
+    display: flex;
+    justify-content: flex-start;
+    gap: 10px;
+    margin-left: 10px;
+}
+.popup-full-wrapper .popupfull-close .popup-wrapper-right{
+    margin-right: 30px;
+}
+
+.popup-full-wrapper .popupfull-close button{
+    background: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+
+.popup-full-wrapper .popupfull-close button img{
+    filter: invert(1);
+}

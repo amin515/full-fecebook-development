@@ -1,5 +1,20 @@
 import express from 'express';
-import { loggedInUser, login, register, accontActivation, activationByCode, forgotPassword, resetPasswordLink, resendActivationLink, findUserAccount,  sendPasswordResetOtp, checkResetPasswordOtp, resetPassword} from '../Controllers/UserControllers.js';
+import { loggedInUser, 
+    login, 
+    register, 
+    accontActivation, 
+    activationByCode, 
+    forgotPassword, 
+    resetPasswordLink, 
+    resendActivationLink, 
+    findUserAccount,  
+    sendPasswordResetOtp, 
+    checkResetPasswordOtp, 
+    resetPassword, 
+    // userProfileUpdate,
+    userProfileUpdater
+  }
+  from '../Controllers/UserControllers.js';
 
 
 
@@ -13,6 +28,8 @@ const router = express.Router();
 router.post('/login', login);
 router.post('/register', register);
 router.get('/me', loggedInUser);
+router.put('/profile-updater/:id', userProfileUpdater);
+// router.put('/profile-update/:id', userProfileUpdate);
 router.get('/activation/:token', accontActivation);
 router.post('/code-activate', activationByCode);
 router.post('/resend-link', resendActivationLink);
