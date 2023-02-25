@@ -21,6 +21,13 @@
     border-bottom: 1px solid #ccc;
     position: relative;
 }
+/* .fb-modal-footer{
+    display: flex;
+    justify-content: center;
+    padding: 10px 15px;
+    border-top: 1px solid #ccc;
+    position: relative;
+} */
 .fb-modal-header .title {
     font-weight: bolder;
     font-size: 18px;
@@ -39,6 +46,11 @@
     align-items: center;
     cursor: pointer;
     transition: .2s;
+}
+.fb-modal-header button.back{
+    right: auto;
+    left: 5px;
+
 }
 .fb-modal-header button:hover{
     background-color: #e9e9e9;

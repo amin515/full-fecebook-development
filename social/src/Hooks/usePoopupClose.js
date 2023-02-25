@@ -16,10 +16,3 @@ const usePoopupClose = (ref, setRef) => {
 
 export default usePoopupClose;
 
-
-// useEffect(() => {
-//     document.addEventListener('mousedown', function(e) {
-//         if(!ref.current.contains(e.target) && ref.current){
-//           setRef(false)
-//         }
-// }, [ref])
