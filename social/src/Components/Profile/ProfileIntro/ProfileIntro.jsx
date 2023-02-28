@@ -255,7 +255,15 @@ console.log(featuredChecked)
    setFeaturedChecked(updatedList)
   
   }
+  
+  //slider featured
+  const handleFeaturedSlider = () => {
+    const data = new FormData()
 
+    featuredChecked.forEach(item => {
+      data.append("slider", item)
+    })
+  }
   return (
     <FBCard>
       <div className="user-personal-info">
@@ -1018,7 +1026,8 @@ console.log(featuredChecked)
               </div>
               <div className="featured-next-cancel-btn">
                 <button onClick={handleBackPrevious}>Cancel</button>
-                <button>Next</button>
+                <button className="active"
+                disabled={featuredChecked.length === 0} onClick={handleFeaturedSlider}>Next</button>
               </div>
             </FbModal>
           )}

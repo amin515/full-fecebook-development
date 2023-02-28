@@ -2298,3 +2298,14 @@ a.personal-info-button:hover {
   font-size: 16px;
   cursor: pointer;
 }
+.featured-next-cancel-btn button.active {
+ background-color: #25aff3;
+ color: #fff;
+}
+
+.featured-next-cancel-btn button:disabled{
+  background-color: #ccc;
+  color: #000;
+}
+
+

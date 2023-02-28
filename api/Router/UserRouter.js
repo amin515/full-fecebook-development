@@ -1,4 +1,5 @@
 import express from 'express';
+
 import { loggedInUser, 
     login, 
     register, 
@@ -12,7 +13,8 @@ import { loggedInUser,
     checkResetPasswordOtp, 
     resetPassword, 
     // userProfileUpdate,
-    userProfileUpdater
+    userProfileUpdater,
+    featuredSlider
   }
   from '../Controllers/UserControllers.js';
 
@@ -22,6 +24,22 @@ import { loggedInUser,
 // create student router
 const router = express.Router();
 
+import path from "path";
+import multer from 'multer';
+
+// resolve
+const __dirname = path.resolve()
+
+const storage = multer.diskStorage({
+  destination : (req, file, cb) => {
+    cb(null, path.join(__dirname, 'api/public/slider'))
+  },
+  filename : (req, file, cb) => {
+    cb(null, Date.now() + '_' + file.originalname)
+  }
+})
+
+const sliderFetured = multer({storage}).array("slider", 20)
 // use auth router
 
 
@@ -29,6 +47,7 @@ router.post('/login', login);
 router.post('/register', register);
 router.get('/me', loggedInUser);
 router.put('/profile-updater/:id', userProfileUpdater);
+router.post('/featured-slider/:id', sliderFetured, featuredSlider);
 // router.put('/profile-update/:id', userProfileUpdate);
 router.get('/activation/:token', accontActivation);
 router.post('/code-activate', activationByCode);

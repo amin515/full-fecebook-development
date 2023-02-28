@@ -1024,3 +1024,38 @@ export const userProfileUpdater = async(req, res, next) => {
     console.log(next(error)) 
   }
 }
+
+
+// featured slider
+
+export const featuredSlider = async(req, res, next) => {
+    try {
+        const { id } = req.params;
+        const { name } = req.body
+        const slider = []
+        req.files.forEach(item => {
+          slider.push(item.filename)
+        })
+    
+        const user = await User.findByIdAndUpdate(id, {
+            featured : [slider, {name, slider}],
+            
+        }, {
+            new : true
+        })
+    
+        if( user ){
+          res.status(200).json({
+            msg : "Profile update successful",
+            
+          })
+        }
+    
+        if( !user ){
+         next(customError(400, 'Profile update failed'))
+         }
+      } catch (error) {
+        console.log(next(error)) 
+      }
+}
+
