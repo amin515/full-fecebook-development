@@ -1546,7 +1546,7 @@ Components
   margin: auto;
 }
 
-.fb-profile-header .fb-cover-photo button {
+.fb-profile-header .fb-cover-photo .edit-btn {
   position: absolute;
   bottom: 20px;
   right: 30px;
@@ -2306,6 +2306,19 @@ a.personal-info-button:hover {
 .featured-next-cancel-btn button:disabled{
   background-color: #ccc;
   color: #000;
+}
+
+.featuredInput {
+  width: 96%;
+  padding: 10px 20px;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+  border-color: #ccc;
+  outline-color: transparent;
+  border-radius: 5px;
+  /* height: 36px; */
 }
 
 

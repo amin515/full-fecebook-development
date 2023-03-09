@@ -6,6 +6,7 @@ import Cookies from "js-cookie";
 import createToaste from "../../Pages/utility/toastMessage";
 import { LOADER_START } from "../top-loader/loaderType";
 import {
+  FEATURED_SLIDER_UPDATE,
   LOGIN_FAILED,
   LOGIN_REQUEST,
   LOGIN_SUCCESS,
@@ -16,6 +17,8 @@ import {
   TOKEN_USER_REQ,
   TOKEN_USER_SUCCESS,
   USER_LOGOUT,
+  USER_PROFILE_COVER_PHOTO_UPDATE,
+  USER_PROFILE_PHOTO_UPDATE,
   USER_PROFILE_UPDATE,
   USER_SAVE_INFO_UPDATE,
 } from "./actionType";
@@ -285,6 +288,8 @@ async (dispatch) => {
     navigate('/')
    }
 
+   // user profile updater
+
    export const userUpdateProfile = (data, id, setBioShow) => async(dispatch) => {
       
     try {
@@ -303,6 +308,7 @@ async (dispatch) => {
       console.log(error.message)
     }
    }
+
    export const saveInfoModal = (data,  setEnableProfile) => async(dispatch) => {
      
     try {
@@ -312,4 +318,74 @@ async (dispatch) => {
       console.log(error.message)
     }
     
+   }
+
+
+   //user profile photo update
+
+   export const userProfilePhotoUpdater = (id, form_data, setProfilePhotoUpdate, setImage) => async(dispatch) => {
+    
+    try {
+      await axios
+        .put(`/api/v1/user/profile-photo-update/${id}`, form_data)
+        .then((res) => {
+          setProfilePhotoUpdate(false);
+          setImage()
+          dispatch({
+            type : USER_PROFILE_PHOTO_UPDATE,
+            payload : {
+              profile_photo : res.data.filename
+            }
+          })
+         
+        });
+    } catch (error) {
+      console.log(error.mesage)
+    }
+
+   }
+
+
+   // cover photo update
+   export const userProfileCoverPhotoUpdater = (id, data_form, setCoverPhoto, setImage) => async(dispatch) => {
+    
+    try {
+      await axios
+        .put(`/api/v1/user/profile-cover-photo-update/${id}`, data_form)
+        .then((res) => {
+          setCoverPhoto(false);
+          setImage()
+          dispatch({
+            type : USER_PROFILE_COVER_PHOTO_UPDATE,
+            payload : {
+              cover_photo : res.data.filename
+            }
+          })
+         
+        });
+    } catch (error) {
+      console.log(error.mesage)
+    }
+
+   }
+   // cover photo update
+   export const featuredPhotoUpdater = (id, data, setSliderInput, setFeaturedUploadShow, setFeaturedAdd) => async(dispatch) => {
+    
+    try {
+      await axios
+        .post(`/api/v1/user/featured-slider/${id}`, data)
+        .then((res) => {
+          setSliderInput('');
+          setFeaturedAdd(false)
+          setFeaturedUploadShow(false)
+          dispatch({
+            type : FEATURED_SLIDER_UPDATE,
+            featured : res.data.featured
+          })
+        //  console.log(res.data)
+        });
+    } catch (error) {
+      console.log(error.mesage)
+    }
+
    }

@@ -1,0 +1,70 @@
+.frineds_menu_container {
+	margin: 60px 0px;
+	display: flex;
+	/* flex: 2 1; */
+    /* box-shadow: 0 2px 4px rgb(0 0 0 / 10%), 0 8px 16px rgb(0 0 0 / 10%); */
+	position: relative;
+	width: 20%;
+    background-color: #fff;
+
+}
+
+.friends_menu_item_box{
+  position: fixed;
+}
+.frineds_menu_container .friends_wrapper{
+  top: 60px;
+
+}
+
+.friends_setting_box {
+	display: flex;
+	justify-content: space-between;
+	gap: 200px;
+	flex-wrap: wrap;
+    padding: 10px 0 0 15px;
+    transition: .3s;
+}
+
+.friends_setting_box h4{
+    font-size: 18px;
+}
+.friends_setting_box span{
+    width: 30px;
+    height: 30px;
+    background-color: #ccc;
+    display: flex;
+    border-radius: 50%;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+.friends_setting_box span:hover{
+    background-color: #c2c0c0;
+}
+
+.friends_list_item {
+    margin-top: 5px;
+
+}
+.friends_list_item ul li{
+ display: flex;
+ gap: 10px;
+ align-items: center;
+ cursor: pointer;
+ padding: 5px 0 5px 10px;
+ border-top-right-radius: 6px;
+ border-bottom-right-radius: 6px;
+}
+
+.friends_list_item ul li:hover{
+    background-color: #ccc;
+}
+.friends_list_item ul li span{
+    font-size: 25px;
+}
+
+.friends_list_item ul li a{
+    font-size: 16px;
+    font-weight: bold;
+}

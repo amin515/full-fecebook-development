@@ -1,0 +1,118 @@
+.frineds_home_container{
+    margin: 60px 0px;
+    display: flex;
+    width: 80%;
+    background-color: #e2e0e0;
+   
+}
+
+.friends_home_wrapper {
+	padding: 10px 20px;
+	width: 100%;
+}
+
+.friends_req_header{
+    display: flex;
+    justify-content: space-between;
+    padding: 0 0 20px 0;
+}
+.friends_req_header button{
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    font-weight: bold;
+    color: #2374e1;
+}
+
+.friends_req_linked_area{
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+.friends_req_box{
+    background-color: #fff;
+    width: 215px;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid #d3dae0; 
+    box-shadow: rgba(0, 0, 0, 0.18) 0px 2px 4px;
+
+}
+.friends_req_img{
+    width: 100%;
+}
+.friends_req_img img{
+    width: 100%;
+}
+
+.friends_req_img .friends_req_name p{
+    font-size: 18px;
+    font-weight: bold;
+    padding: 0 10px;
+}
+
+.friends_req_box .mutual_item{
+    padding: 10px;
+}
+.friends_req_box .mutual{
+    display: flex;
+    
+}
+
+
+.friends_req_box .mutual_item .mutual .mutual-box{
+ margin-right: 10px;
+}
+
+.friends_req_box .mutual_item .mutual .mutual-box :last-child{
+    position: relative;
+    transform: translate(-5px, 0);
+    
+}
+.friends_req_box .mutual_item .mutual .span{
+    font-size: 11px;
+}
+.friends_req_box .mutual img{
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 2px solid #ccc;
+}
+
+.friends_req_box .friends_confirm_btns{
+ display: flex;
+ justify-content: center;
+ align-items: center;
+ flex-direction: column;
+ gap: 5px;
+}
+
+.friends_req_box .friends_confirm_btns button{
+    width: 100%;
+    cursor: pointer;
+    border: none;
+    height: 30px;
+    display: flex;
+    gap: 5px;
+    border-radius: 5px;
+    justify-content: center;
+    align-items: center;
+
+}
+.friends_req_box .friends_confirm_btns .blue{
+    width: 100%;
+    cursor: pointer;
+    border: none;
+    height: 30px;
+    display: flex;
+    gap: 5px;
+    border-radius: 5px;
+    justify-content: center;
+    align-items: center;
+    background-color: #2374e1;
+    color: #fff;
+}
+
+.friends_req_box .friends_confirm_btns .blue:hover{
+    background-color: #417ac5;
+}

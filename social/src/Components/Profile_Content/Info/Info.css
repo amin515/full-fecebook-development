@@ -1,0 +1,171 @@
+.profile-info {
+  position: relative;
+  cursor: pointer;
+}
+.profile-camera-btn {
+  position: absolute;
+  bottom: 11px;
+  left: 129px;
+  font-size: 30px;
+  border: none;
+  background-color: #f0f0f0;
+  cursor: pointer;
+  border-radius: 50%;
+  box-sizing: content-box;
+  display: block;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.profile__upload__content {
+  overflow: hidden;
+  min-height: 500px;
+}
+
+.profile__upload {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  height: 30px;
+  padding: 20px 10px;
+  min-height: 500px;
+}
+
+.profile__upload i {
+  cursor: pointer;
+}
+.profile__upload label {
+  cursor: pointer;
+  width: 100%;
+  height: 40px;
+  background-color: #e7f3ff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+  color: #5db1f7;
+  font-weight: bold;
+}
+
+.profile__photo__manage {
+  padding: 20px 10px 0 10px;
+  /* min-height: 500px; */
+  overflow: auto;
+}
+.profile__photo__manage .profile__croping textarea {
+  width: 100%;
+  height: 60px;
+  padding: 20px;
+  border-color: #e7f3ff;
+  outline: none;
+  resize: none;
+  border-radius: 10px;
+}
+
+.profile__croping__area {
+  position: relative;
+  width: 100%;
+  height: 400px;
+  margin: 20px 0;
+}
+
+.image__zooming{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.image__zooming button{
+  border: none;
+  font-size: 20px;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.image__zooming input{
+  appearance: none;
+  --webkit-appearance: none;
+  width: 60%;
+  height: 5px;
+  transform: translate(0px, -1px);
+  background-color: #ccc;
+  border-radius: 10px;
+}
+
+.image__zooming input::-webkit-slider-thumb{
+  appearance: none;
+  --webkit-appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: #fff;
+  border: 1ps solid #ccc;
+  cursor: pointer;
+}
+
+
+.reactEasyCrop_CropAreaRound{
+  width: 300px !important;
+	height: 300px !important;
+}
+
+.reactEasyCrop_CropArea {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  border: 1px solid rgba(0, 0, 0, 0.5) ;
+  box-sizing: border-box;
+  box-shadow: 0 0 0 9999em;
+  color: rgba(255, 255, 255, 0.8) !important;
+  overflow: hidden;
+}
+.profile__croping__btns{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 5px;
+}
+
+.profile__croping__btns button{
+  border: none;
+  cursor: pointer;
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  border-radius: 7px;
+}
+
+.profile__modal__save__area{
+ display: flex;
+ justify-content: flex-end;
+ padding: 10px;
+ gap: 10px;
+ border-top: 1px solid #ccc;
+
+}
+
+.profile__modal__save__area button{
+  border: none;
+  cursor: pointer;
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  border-radius: 7px;
+}
+
+.profile__modal__save__area .save-blue{
+  background-color: var(--blue-color);
+  color: #fff;
+}

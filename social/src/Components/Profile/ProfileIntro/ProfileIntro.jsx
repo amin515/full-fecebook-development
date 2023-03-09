@@ -3,6 +3,7 @@ import FBCard from "../../FBCard/FBCard";
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import {
+  featuredPhotoUpdater,
   saveInfoModal,
   userUpdateProfile,
 } from "../../../redux/auth/authAction";
@@ -11,6 +12,8 @@ import ClickUpdate from "../../ClickUpdate/ClickUpdate";
 import PopupFullWidth from "../../PopupFullWidth/PopupFullWidth";
 import StorySlider from "../../StorySlider/StorySlider";
 import featuredImage from "../../../assets/images/previewUpload.png";
+import axios from "axios";
+
 
 const ProfileIntro = () => {
   // use dispatch
@@ -228,7 +231,7 @@ const ProfileIntro = () => {
   const [preview, setPreview] = useState([]);
   const [featuredChecked, setFeaturedChecked] = useState([]);
 
-console.log(featuredChecked)
+
 
   const handleBackPrevious = () => {
     setFeaturedAdd(true);
@@ -237,6 +240,7 @@ console.log(featuredChecked)
   };
 
 
+  // check uncheck photo 
   const handleFeaturedUploadPhotos = (e) => {
     setPreview((prevState) => ([...prevState, ...Array.from(e.target.files)]))
     setFeaturedChecked((prevState) => ([...prevState, ...Array.from(e.target.files)]))
@@ -256,14 +260,30 @@ console.log(featuredChecked)
   
   }
   
+  // get value from form data
+  const [sliderInput, setSliderInput] = useState('')
+
+  const handleFeturedNameInputValue = (e) => {
+    setSliderInput(e.target.value)
+  }
+
   //slider featured
   const handleFeaturedSlider = () => {
     const data = new FormData()
-
+    data.append("name", sliderInput)
+  
     featuredChecked.forEach(item => {
-      data.append("slider", item)
+      data.append("slider",  item)
+      
     })
+
+    let id = user._id
+    dispatch(featuredPhotoUpdater(id, data,  setSliderInput, setFeaturedUploadShow,setFeaturedAdd))
+
   }
+
+  let featured = user.featured[1].slider
+
   return (
     <FBCard>
       <div className="user-personal-info">
@@ -907,13 +927,13 @@ console.log(featuredChecked)
             <div className="profile-features-item">
               <div
                 style={{
-                  backgroundImage:
-                    'url("https://dvvy6louqcr7j.cloudfront.net/vista/HO00013564/heroPoster/Avatar-The-Way-of-Water.png")',
+                  backgroundImage: 
+                  `url(/slider/${featured[0]})`,
                 }}
                 className="profile-featured-image"
               ></div>
             </div>
-            <span className="featured-item-count">+33</span>
+            <span className="featured-item-count">{`+ ${featured.length - 1}`}</span>
           </div>
           <div
             className="profile-features-gallary"
@@ -975,6 +995,8 @@ console.log(featuredChecked)
           {/* modal 2 */}
           {featuredUploadShow && (
             <FbModal title="Edit featured collection" back={handleBackPrevious}>
+
+              <input type="text" placeholder="Featured Name" name="slider" className="featuredInput" value={sliderInput} onChange={handleFeturedNameInputValue}/>
               <div
                 className="featured-popup-modal"
                 style={{ minHeight: "500px" }}
