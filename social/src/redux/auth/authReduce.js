@@ -5,6 +5,7 @@
 
 import {
   FEATURED_SLIDER_UPDATE,
+  GET_ALL_USERS,
   LOGIN_FAILED,
   LOGIN_SUCCESS,
   REGISTER_FAILED,
@@ -112,6 +113,12 @@ const authReducer = (state = initialState, { type, payload }) => {
           ...state.user,
           ...payload 
         },
+      };
+
+    case GET_ALL_USERS:
+      return {
+        ...state,
+        users: payload,
       };
 
     default:

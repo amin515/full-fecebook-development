@@ -17,6 +17,8 @@ import {
   featuredSlider,
   userProfilePhotoUpdater,
   userProfileCoverPhotoUpdater,
+  getAllUser,
+  addFriendRequest
 } from "../Controllers/UserControllers.js";
 
 // create student router
@@ -55,6 +57,10 @@ const coverPhoto = multer({ storage }).single("cover");
 router.post("/login", login);
 router.post("/register", register);
 router.get("/me", loggedInUser);
+
+router.get("/get-all-user/:id", getAllUser);
+router.get("/add-friends/:sender/:receiver", addFriendRequest);
+
 router.put("/profile-updater/:id", userProfileUpdater);
 router.put("/profile-photo-update/:id", profilePhoto, userProfilePhotoUpdater);
 router.put(

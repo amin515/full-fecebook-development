@@ -29,7 +29,7 @@ app.use(cors());
 
 app.use(express.static(path.join(__dirname, 'api/public')))
 
-console.log(__dirname,'/api/public/')
+
 // router initalised
 
 app.use('/api/v1/user' , userRouter);

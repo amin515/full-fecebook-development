@@ -986,9 +986,8 @@ export const featuredSlider = async (req, res, next) => {
     if (user) {
       res.status(200).json({
         msg: "Profile update successful",
-        featured : user.featured
+        featured: user.featured,
       });
-
     }
 
     if (!user) {
@@ -1001,65 +1000,111 @@ export const featuredSlider = async (req, res, next) => {
 
 /**
  * profile photo updater
- * @param {*} req 
- * @param {*} res 
- * @param {*} next 
+ * @param {*} req
+ * @param {*} res
+ * @param {*} next
  */
-export const userProfilePhotoUpdater = async(req, res, next) => {
+export const userProfilePhotoUpdater = async (req, res, next) => {
   try {
-
-    const {id} = req.params;
+    const { id } = req.params;
     const user = await User.findByIdAndUpdate(
       id,
       {
-        profile_photo : req.file.filename,
+        profile_photo: req.file.filename,
       },
       {
         new: true,
       }
     );
 
-    if(user){
+    if (user) {
       res.json({
-        message : "Profile photo update successfuly",
-        filename : req.file.filename
-      })
-      
+        message: "Profile photo update successfuly",
+        filename: req.file.filename,
+      });
     }
   } catch (error) {
-    console.log(next(error))
+    console.log(next(error));
   }
-}
+};
 
 /**
  * cover photo updater
- * @param {*} req 
- * @param {*} res 
- * @param {*} next 
+ * @param {*} req
+ * @param {*} res
+ * @param {*} next
  */
-export const userProfileCoverPhotoUpdater = async(req, res, next) => {
-  try {
 
-    const {id} = req.params;
+
+
+export const userProfileCoverPhotoUpdater = async (req, res, next) => {
+  try {
+    const { id } = req.params;
     const user = await User.findByIdAndUpdate(
       id,
       {
-        cover_photo : req.file.filename,
+        cover_photo: req.file.filename,
       },
       {
         new: true,
       }
     );
 
-    if(user){
+    if (user) {
       res.json({
-        message : "Profile cover photo update successfuly",
-        filename : req.file.filename
-      })
-      
+        message: "Profile cover photo update successfuly",
+        filename: req.file.filename,
+      });
     }
   } catch (error) {
-    console.log(next(error))
+    console.log(next(error));
   }
-  
-}
+};
+
+
+
+export const getAllUser = async (req, res, next) => {
+  try {
+
+    const { id } = req.params;
+    const users = await User.find().select('-password').where('_id').ne(id);
+
+    if (users) {
+      res.json({
+        users : users
+      });
+    }
+  } catch (error) {
+     next(customError(400, "User not found"))
+  }
+};
+
+
+
+
+export const addFriendRequest = async (req, res, next) => {
+  try {
+   
+    const {sender , receiver } = req.params;
+
+   
+    const send = await User.findById(sender)
+    const receive = await User.findById(receiver)
+
+    await receive.updateOne({
+      $push : {request : sender}
+    })
+
+    await receive.updateOne({
+      $push : {flowers : sender}
+    })
+
+    await send.updateOne({
+      $push : {flowing : receiver}
+    })
+    
+  } catch (error) {
+     next(customError(400, "User not found"))
+  }
+  res.send('Done')
+};
